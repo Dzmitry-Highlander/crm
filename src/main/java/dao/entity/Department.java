@@ -1,12 +1,17 @@
 package dao.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Department {
     @Id
+    @JoinTable(
+            name = "department_relation",
+            joinColumns = {
+                    @JoinColumn(name = ""),
+                    @JoinColumn(name = "")
+            }
+    )
     private Long id;
     private String name;
     @ManyToOne
