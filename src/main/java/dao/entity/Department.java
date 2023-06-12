@@ -8,9 +8,9 @@ public class Department {
     @JoinTable(
             name = "department_relation",
             joinColumns = {
-                    @JoinColumn(name = "parent_id"),
-                    @JoinColumn(name = "")
-            }
+                    @JoinColumn(name = "parent_id")
+            },
+            inverseJoinColumns = @JoinColumn(name = "child_id")
     )
     private Long id;
     private String name;
