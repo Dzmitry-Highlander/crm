@@ -8,7 +8,7 @@ public class Department {
     @JoinTable(
             name = "department_relation",
             joinColumns = {
-                    @JoinColumn(name = ""),
+                    @JoinColumn(name = "parent_id"),
                     @JoinColumn(name = "")
             }
     )
