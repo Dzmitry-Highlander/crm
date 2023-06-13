@@ -18,7 +18,14 @@ public class DepartmentJBDCDao implements IDepartmentDao {
 
     @Override
     public Department read(Long id) {
-        return null;
+        EntityManager em = HibernateUtil.getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Department> criteria = cb.createQuery(Department.class);
+        Root<Department> emp = criteria.from(Department.class);
+        criteria.select(emp)
+                .where(cb.equal(emp.get("id"), id));
+
+        return em.createQuery(criteria).getSingleResult();
     }
 
     @Override
@@ -26,9 +33,7 @@ public class DepartmentJBDCDao implements IDepartmentDao {
         EntityManager em = HibernateUtil.getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Department> criteria = cb.createQuery(Department.class);
-        Root<Department> departmentRoot = criteria.from(Department.class);
-
-        criteria.select(departmentRoot);
+        criteria.from(Department.class);
 
         return em.createQuery(criteria).getResultList();
     }

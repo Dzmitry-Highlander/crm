@@ -2,7 +2,6 @@ package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.dto.LocationDTO;
-import dao.entity.Department;
 import dao.entity.Location;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,12 +17,12 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/api/location/read_all")
-public class LocationServlet extends HttpServlet {
+@WebServlet("/api/location/read")
+public class LocationReadServlet extends HttpServlet {
     private final ILocationService locationService;
     private final ObjectMapper objectMapper;
 
-    public LocationServlet() {
+    public LocationReadServlet() {
         this.locationService = LocationServiceFactory.getInstance();
         this.objectMapper = ObjectMapperFactory.getInstance();
         this.objectMapper.findAndRegisterModules();
@@ -34,13 +33,8 @@ public class LocationServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        List<LocationDTO> locationDTOS = locationService.read();
-        List<Location> locations = new ArrayList<>();
+        LocationDTO dto = locationService.read(1L);
 
-        for (LocationDTO dto : locationDTOS) {
-            locations.add(locationService.dtoToEntity(dto));
-        }
-
-        writer.write(objectMapper.writeValueAsString(locations));
+        writer.write(objectMapper.writeValueAsString(dto));
     }
 }

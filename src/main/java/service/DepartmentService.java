@@ -49,7 +49,9 @@ public class DepartmentService implements IDepartmentService {
 
     @Override
     public DepartmentDTO read(Long id) {
-        return null;
+        Department department = departmentDao.read(id);
+
+        return entityToDTO(department);
     }
 
     @Override

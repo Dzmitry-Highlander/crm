@@ -43,7 +43,9 @@ public class LocationService implements ILocationService {
 
     @Override
     public LocationDTO read(Long id) {
-        return null;
+        Location location = locationDao.read(id);
+
+        return entityToDTO(location);
     }
 
     @Override

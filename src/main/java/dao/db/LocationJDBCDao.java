@@ -18,7 +18,14 @@ public class LocationJDBCDao implements ILocationDao {
 
     @Override
     public Location read(Long id) {
-        return null;
+        EntityManager em = HibernateUtil.getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Location> criteria = cb.createQuery(Location.class);
+        Root<Location> emp = criteria.from(Location.class);
+        criteria.select(emp)
+                .where(cb.equal(emp.get("id"), id));
+
+        return em.createQuery(criteria).getSingleResult();
     }
 
     @Override
@@ -26,9 +33,7 @@ public class LocationJDBCDao implements ILocationDao {
         EntityManager em = HibernateUtil.getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Location> criteria = cb.createQuery(Location.class);
-        Root<Location> departmentRoot = criteria.from(Location.class);
-
-        criteria.select(departmentRoot);
+        criteria.from(Location.class);
 
         return em.createQuery(criteria).getResultList();
     }
