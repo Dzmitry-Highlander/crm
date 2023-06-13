@@ -6,6 +6,7 @@ import dao.api.ILocationDao;
 import dao.entity.Location;
 import service.api.ILocationService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LocationService implements ILocationService {
@@ -47,7 +48,14 @@ public class LocationService implements ILocationService {
 
     @Override
     public List<LocationDTO> read() {
-        return null;
+        List<Location> locations = locationDao.read();
+        List<LocationDTO> locationDTOS = new ArrayList<>();
+
+        for (Location location : locations) {
+            locationDTOS.add(entityToDTO(location));
+        }
+
+        return locationDTOS;
     }
 
     @Override
