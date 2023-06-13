@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 @Entity
 public class Department {
     @Id
+    @GeneratedValue
     @JsonProperty("department_id")
     private Long id;
     private String name;

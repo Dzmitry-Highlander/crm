@@ -2,6 +2,7 @@ package dao.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Entity
 public class Location implements Serializable {
     @Id
+    @GeneratedValue
     @JsonProperty("location_id")
     private Long id;
     private String name;
