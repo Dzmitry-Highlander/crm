@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 
 @WebServlet("/api/department/read")
 public class DepartmentReadServlet extends HttpServlet {
+    private static final String ID = "id";
     private final IDepartmentService departmentService;
     private final ObjectMapper objectMapper;
 
@@ -29,8 +30,9 @@ public class DepartmentReadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
 
+        String id = req.getParameter(ID);
         PrintWriter writer = resp.getWriter();
-        DepartmentDTO dto =departmentService.read(1L);
+        DepartmentDTO dto =departmentService.read(Long.parseLong(id));
 
         writer.write(objectMapper.writeValueAsString(dto));
     }
