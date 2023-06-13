@@ -4,12 +4,7 @@ import core.dto.DepartmentCreateUpdateDTO;
 import core.dto.DepartmentDTO;
 import dao.api.IDepartmentDao;
 import dao.entity.Department;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
 import service.api.IDepartmentService;
-import service.util.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,14 +54,7 @@ public class DepartmentService implements IDepartmentService {
 
     @Override
     public List<DepartmentDTO> read() {
-        EntityManager em = HibernateUtil.getEntityManager();
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Department> criteria = cb.createQuery(Department.class);
-        Root<Department> departmentRoot = criteria.from(Department.class);
-
-        criteria.select(departmentRoot);
-
-        List<Department> departments = em.createQuery(criteria).getResultList();
+        List<Department> departments = departmentDao.read();
         List<DepartmentDTO> departmentDTOS = new ArrayList<>();
 
         for (Department department : departments) {
