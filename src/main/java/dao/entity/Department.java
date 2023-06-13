@@ -6,9 +6,7 @@ import jakarta.persistence.*;
 public class Department {
     @Id
     @GeneratedValue
-    @Column(name = "department_id")
     private Long id;
-    @Column(name = "name")
     private String name;
     @ManyToOne
     @JoinTable(
@@ -17,10 +15,12 @@ public class Department {
             inverseJoinColumns = @JoinColumn(name = "child_id")
     )
     private Department parent;
-    @Column(name = "phone")
     private String phone;
     @ManyToOne
-    @JoinColumn(name = "location_id")
+    @JoinTable(
+            name = "location",
+            joinColumns = @JoinColumn(name = "location_id")
+    )
     private Location location;
 
     public Department() {

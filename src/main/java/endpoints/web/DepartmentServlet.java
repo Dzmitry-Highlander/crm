@@ -7,18 +7,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.DepartmentService;
+import service.LocationService;
 import service.api.IDepartmentService;
+import service.api.ILocationService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/api/department/read")
+@WebServlet("/api/test")
 public class DepartmentServlet extends HttpServlet {
-    private final IDepartmentService departmentService;
+    private final ILocationService locationService;
     private final ObjectMapper objectMapper;
 
     public DepartmentServlet() {
-        this.departmentService = new DepartmentService();
+        this.locationService = new LocationService();
         this.objectMapper = new ObjectMapper();
     }
 
@@ -28,6 +30,6 @@ public class DepartmentServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-        writer.write(objectMapper.writeValueAsString(departmentService.read()));
+        writer.write(objectMapper.writeValueAsString(locationService.read()));
     }
 }
