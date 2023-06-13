@@ -19,6 +19,7 @@ import java.util.List;
 
 @WebServlet("/api/location/read")
 public class LocationReadServlet extends HttpServlet {
+    private static final String ID = "id";
     private final ILocationService locationService;
     private final ObjectMapper objectMapper;
 
@@ -32,8 +33,9 @@ public class LocationReadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
 
+        String id = req.getParameter(ID);
         PrintWriter writer = resp.getWriter();
-        LocationDTO dto = locationService.read(1L);
+        LocationDTO dto = locationService.read(Long.parseLong(id));
 
         writer.write(objectMapper.writeValueAsString(dto));
     }
