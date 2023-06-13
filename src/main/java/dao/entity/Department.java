@@ -10,16 +10,20 @@ public class Department {
     private Long id;
     @Column(name = "name")
     private String name;
-    @JoinTable(
-            name="department_relations",
-            joinColumns= @JoinColumn(name="parent_id"),
-            inverseJoinColumns= @JoinColumn(name="child_id")
-    )
     @ManyToOne
+    @JoinTable(
+            name = "department_relations",
+            joinColumns = @JoinColumn(name = "parent_id"),
+            inverseJoinColumns = @JoinColumn(name = "child_id")
+    )
     private Department parent;
     @Column(name = "phone")
     private String phone;
     @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name="location_id", referencedColumnName="location"),
+            @JoinColumn(name="name", referencedColumnName="location")
+    })
     private Location location;
 
     public Department() {
