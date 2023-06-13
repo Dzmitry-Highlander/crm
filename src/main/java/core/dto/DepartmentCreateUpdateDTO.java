@@ -3,30 +3,20 @@ package core.dto;
 import dao.entity.Department;
 import dao.entity.Location;
 
-public class DepartmentDTO {
-    private Long id;
+public class DepartmentCreateUpdateDTO {
     private String name;
     private Department parent;
     private String phone;
     private Location location;
 
-    public DepartmentDTO() {
+    public DepartmentCreateUpdateDTO() {
     }
 
-    public DepartmentDTO(Long id, String name, Department parent, String phone, Location location) {
-        this.id = id;
+    public DepartmentCreateUpdateDTO(String name, Department parent, String phone, Location location) {
         this.name = name;
         this.parent = parent;
         this.phone = phone;
         this.location = location;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

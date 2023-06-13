@@ -1,9 +1,6 @@
 package core.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class LocationDTO {
-    @JsonProperty("location_id")
     private Long id;
     private String name;
 
