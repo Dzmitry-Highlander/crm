@@ -1,9 +1,7 @@
 package service;
 
-import core.dto.DepartmentDTO;
 import core.dto.LocationCreateUpdateDTO;
 import core.dto.LocationDTO;
-import dao.entity.Department;
 import dao.entity.Location;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
