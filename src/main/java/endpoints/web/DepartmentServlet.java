@@ -1,6 +1,8 @@
 package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import core.dto.DepartmentDTO;
+import dao.entity.Department;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,6 +14,8 @@ import service.factory.ObjectMapperFactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/api/department/read_all")
 public class DepartmentServlet extends HttpServlet {
@@ -29,7 +33,13 @@ public class DepartmentServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
+        List<DepartmentDTO> departmentDTOS = departmentService.read();
+        List<Department> departments = new ArrayList<>();
 
-        writer.write(objectMapper.writeValueAsString(departmentService.read()));
+        for (DepartmentDTO dto : departmentDTOS) {
+            departments.add(departmentService.dtoToEntity(dto));
+        }
+
+        writer.write(objectMapper.writeValueAsString(departments));
     }
 }
