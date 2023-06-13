@@ -1,41 +1,19 @@
-package dao.entity;
+package core.dto;
 
-import jakarta.persistence.*;
+import dao.entity.Department;
+import dao.entity.Location;
 
-import java.io.Serializable;
-
-@Entity
-public class Department implements Serializable {
-    @Id
-    @GeneratedValue
-    @Column(name = "department_id")
+public class DepartmentDTO {
     private Long id;
-    @Column(name = "name")
     private String name;
-    @ManyToOne
-    @JoinTable(
-            name = "department_relations",
-            joinColumns = @JoinColumn(name = "parent_id"),
-            inverseJoinColumns = @JoinColumn(name = "child_id")
-    )
     private Department parent;
-    @Column(name = "phone")
     private String phone;
-    @ManyToOne
-    @JoinColumn(name = "location_id")
     private Location location;
 
-    public Department() {
+    public DepartmentDTO() {
     }
 
-    public Department(String name, Department parent, String phone, Location location) {
-        this.name = name;
-        this.parent = parent;
-        this.phone = phone;
-        this.location = location;
-    }
-
-    public Department(Long id, String name, Department parent, String phone, Location location) {
+    public DepartmentDTO(Long id, String name, Department parent, String phone, Location location) {
         this.id = id;
         this.name = name;
         this.parent = parent;

@@ -1,21 +1,21 @@
 CREATE TABLE crm.location (
-    id bigserial,
+    location_id bigserial,
     name text,
-    PRIMARY KEY (id)
+    PRIMARY KEY (location_id)
 );
 
 CREATE TABLE crm.department (
-    id bigserial,
+    department_id bigserial,
     name text,
     phone text,
-    location_id int8,
-    PRIMARY KEY (id),
-    PRIMARY KEY (location_id) REFERENCES crm.location(id)
+    location_id bigint,
+    PRIMARY KEY (department_id),
+    FOREIGN KEY (location_id) REFERENCES crm.location(location_id)
 );
 
 CREATE TABLE crm.department_relations (
-    child_id int8 NOT NULL,
-    parent_id int8 NOT NULL,
-    FOREIGN KEY (child_id) REFERENCES crm.department(id),
-    FOREIGN KEY (parent_id) REFERENCES crm.department(id)
+    child_id bigint NOT NULL,
+    parent_id bigint NOT NULL,
+    FOREIGN KEY (child_id) REFERENCES crm.department(department_id),
+    FOREIGN KEY (parent_id) REFERENCES crm.department(department_id)
 );
