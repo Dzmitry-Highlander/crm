@@ -6,8 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.DepartmentService;
 import service.api.IDepartmentService;
+import service.factory.DepartmentServiceFactory;
 import service.factory.ObjectMapperFactory;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class DepartmentServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
 
     public DepartmentServlet() {
-        this.departmentService = new DepartmentService();
+        this.departmentService = DepartmentServiceFactory.getInstance();
         this.objectMapper = ObjectMapperFactory.getInstance();
         this.objectMapper.findAndRegisterModules();
     }
