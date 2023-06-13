@@ -5,9 +5,9 @@ import java.util.List;
 public interface IServiceCRUD<T, S> {
     S create(T item);
 
-    S get(Long id);
+    S read(Long id);
 
-    List<S> get();
+    List<S> read();
 
     S update(T item);
 
