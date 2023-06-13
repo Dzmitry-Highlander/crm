@@ -17,10 +17,6 @@ public class Department {
     private Department parent;
     private String phone;
     @ManyToOne
-    @JoinTable(
-            name = "location",
-            joinColumns = @JoinColumn(name = "location_id")
-    )
     private Location location;
 
     public Department() {
