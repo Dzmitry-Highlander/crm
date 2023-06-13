@@ -1,10 +1,12 @@
 package dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
 public class Department {
     @Id
+    @JsonProperty("department_id")
     private Long id;
     private String name;
     @JoinTable(
@@ -17,4 +19,7 @@ public class Department {
     private String phone;
     @ManyToOne
     private Location location;
+
+    public Department() {
+    }
 }
