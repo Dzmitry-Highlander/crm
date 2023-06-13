@@ -7,9 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.DepartmentService;
-import service.LocationService;
 import service.api.IDepartmentService;
-import service.api.ILocationService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
