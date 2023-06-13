@@ -8,7 +8,7 @@ public class Department {
     @GeneratedValue
     @Column(name = "department_id")
     private Long id;
-    @Column
+    @Column(name = "name")
     private String name;
     @JoinTable(
             name="department_relations",
@@ -17,7 +17,7 @@ public class Department {
     )
     @ManyToOne
     private Department parent;
-    @Column
+    @Column(name = "phone")
     private String phone;
     @ManyToOne
     private Location location;
