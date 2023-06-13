@@ -4,12 +4,9 @@ import jakarta.persistence.*;
 
 @Entity
 public class Department {
-
     @Id
     private Long id;
-
     private String name;
-
     @JoinTable(
             name="department_relations",
             joinColumns= @JoinColumn(name="parent_id"),
@@ -17,9 +14,7 @@ public class Department {
     )
     @ManyToOne
     private Department parent;
-
     private String phone;
-
     @ManyToOne
     private Location location;
 }
