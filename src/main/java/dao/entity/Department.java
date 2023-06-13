@@ -17,6 +17,7 @@ public class Department {
     )
     @ManyToOne
     private Department parent;
+    @Column
     private String phone;
     @ManyToOne
     private Location location;
