@@ -3,14 +3,11 @@ package dao.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 public class Location implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
     @Id
     private Long id;
     private String name;
