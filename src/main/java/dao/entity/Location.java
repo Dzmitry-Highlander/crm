@@ -3,10 +3,13 @@ package dao.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Location {
+public class Location implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -16,12 +19,12 @@ public class Location {
     public Location() {
     }
 
-    public Location(String name) {
+    public Location(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 
-    public Location(Long id, String name) {
-        this.id = id;
+    public Location(String name) {
         this.name = name;
     }
 
@@ -44,12 +47,13 @@ public class Location {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Location location)) return false;
-        return Objects.equals(getId(), location.getId()) && Objects.equals(name, location.name);
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return Objects.equals(id, location.id) && Objects.equals(name, location.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), name);
+        return Objects.hash(id, name);
     }
 }
