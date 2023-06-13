@@ -21,8 +21,8 @@ public class Department {
     private String phone;
     @ManyToOne
     @JoinColumns({
-            @JoinColumn(name="location_id", referencedColumnName="location"),
-            @JoinColumn(name="name", referencedColumnName="location")
+            @JoinColumn(name="location", referencedColumnName="location_id"),
+            @JoinColumn(name="location", referencedColumnName="name")
     })
     private Location location;
 
