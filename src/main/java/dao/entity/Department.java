@@ -20,10 +20,7 @@ public class Department {
     @Column(name = "phone")
     private String phone;
     @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name="location", referencedColumnName="location_id"),
-            @JoinColumn(name="location", referencedColumnName="name")
-    })
+    @JoinColumn(name = "location_id")
     private Location location;
 
     public Department() {
