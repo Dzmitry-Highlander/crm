@@ -4,11 +4,11 @@ import core.dto.LocationCreateUpdateDTO;
 import core.dto.LocationDTO;
 import dao.entity.Location;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import service.api.ILocationService;
+import service.util.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class LocationService implements ILocationService {
 
     @Override
     public List<LocationDTO> read() {
-        EntityManager em = Persistence.createEntityManagerFactory("crm").createEntityManager();
+        EntityManager em = HibernateUtil.getEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Location> criteria = cb.createQuery(Location.class);
         Root<Location> departmentRoot = criteria.from(Location.class);
