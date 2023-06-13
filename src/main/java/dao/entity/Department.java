@@ -2,8 +2,10 @@ package dao.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+
 @Entity
-public class Department {
+public class Department implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "department_id")
