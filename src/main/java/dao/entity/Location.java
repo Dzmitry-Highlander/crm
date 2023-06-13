@@ -11,7 +11,6 @@ import java.util.Objects;
 public class Location implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-
     @Id
     private Long id;
     private String name;
