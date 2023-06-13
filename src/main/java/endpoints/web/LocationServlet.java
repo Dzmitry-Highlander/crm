@@ -6,8 +6,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.LocationService;
 import service.api.ILocationService;
+import service.factory.LocationServiceFactory;
+import service.factory.ObjectMapperFactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,12 +19,13 @@ public class LocationServlet extends HttpServlet {
     private final ObjectMapper objectMapper;
 
     public LocationServlet() {
-        this.locationService = new LocationService();
-        this.objectMapper = new ObjectMapper();
+        this.locationService = LocationServiceFactory.getInstance();
+        this.objectMapper = ObjectMapperFactory.getInstance();
+        this.objectMapper.findAndRegisterModules();
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();

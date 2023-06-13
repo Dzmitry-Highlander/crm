@@ -3,15 +3,15 @@ package dao.factory;
 import dao.api.ILocationDao;
 import dao.db.LocationJDBCDao;
 
-public class LocationJDBCDaoFactory {
+public class LocationDaoFactory {
     private static volatile ILocationDao instance;
 
-    private LocationJDBCDaoFactory() {
+    private LocationDaoFactory() {
     }
 
     public static ILocationDao getInstance() {
         if (instance == null)  {
-            synchronized (LocationJDBCDaoFactory.class) {
+            synchronized (LocationDaoFactory.class) {
                 if (instance == null) {
                     instance = new LocationJDBCDao();
                 }

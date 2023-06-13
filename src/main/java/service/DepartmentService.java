@@ -2,6 +2,7 @@ package service;
 
 import core.dto.DepartmentCreateUpdateDTO;
 import core.dto.DepartmentDTO;
+import dao.api.IDepartmentDao;
 import dao.entity.Department;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
@@ -14,6 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentService implements IDepartmentService {
+    private final IDepartmentDao departmentDao;
+
+    public DepartmentService(IDepartmentDao departmentDao) {
+        this.departmentDao = departmentDao;
+    }
+
     @Override
     public Department dtoToEntity(DepartmentDTO item) {
         Department department = new Department();

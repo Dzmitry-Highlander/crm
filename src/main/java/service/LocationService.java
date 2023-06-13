@@ -2,18 +2,19 @@ package service;
 
 import core.dto.LocationCreateUpdateDTO;
 import core.dto.LocationDTO;
+import dao.api.ILocationDao;
 import dao.entity.Location;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
 import service.api.ILocationService;
-import service.util.HibernateUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LocationService implements ILocationService {
+    private final ILocationDao locationDao;
+
+    public LocationService(ILocationDao locationDao) {
+        this.locationDao = locationDao;
+    }
+
     @Override
     public Location dtoToEntity(LocationDTO item) {
         Location location = new Location();
@@ -46,21 +47,7 @@ public class LocationService implements ILocationService {
 
     @Override
     public List<LocationDTO> read() {
-        EntityManager em = HibernateUtil.getEntityManager();
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Location> criteria = cb.createQuery(Location.class);
-        Root<Location> departmentRoot = criteria.from(Location.class);
-
-        criteria.select(departmentRoot);
-
-        List<Location> locations = em.createQuery(criteria).getResultList();
-        List<LocationDTO> locationDTOS = new ArrayList<>();
-
-        for (Location department : locations) {
-            locationDTOS.add(entityToDTO(department));
-        }
-
-        return locationDTOS;
+        return null;
     }
 
     @Override
