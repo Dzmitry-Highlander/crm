@@ -7,6 +7,7 @@
     <groupId>by.it-academy.jd2.Mk_JD2_98_23</groupId>
     <artifactId>crm</artifactId>
     <version>1.0.0</version>
+    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
