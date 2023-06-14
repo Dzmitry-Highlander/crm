@@ -32,8 +32,8 @@ public class DepartmentReadServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
         String id = req.getParameter(ID);
-        DepartmentDTO dto =departmentService.read(Long.parseLong(id));
+        DepartmentDTO departmentDTO = departmentService.read(Long.parseLong(id));
 
-        writer.write(objectMapper.writeValueAsString(dto));
+        writer.write(objectMapper.writeValueAsString(departmentDTO));
     }
 }

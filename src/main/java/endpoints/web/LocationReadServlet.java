@@ -35,8 +35,8 @@ public class LocationReadServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
         String id = req.getParameter(ID);
-        LocationDTO dto = locationService.read(Long.parseLong(id));
+        LocationDTO locationDTO = locationService.read(Long.parseLong(id));
 
-        writer.write(objectMapper.writeValueAsString(dto));
+        writer.write(objectMapper.writeValueAsString(locationDTO));
     }
 }
