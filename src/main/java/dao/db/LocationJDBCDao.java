@@ -3,6 +3,7 @@ package dao.db;
 import dao.api.ILocationDao;
 import dao.entity.Location;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -18,14 +19,11 @@ public class LocationJDBCDao implements ILocationDao {
     public Location create(Location item) {
         EntityManager em = HibernateUtil.getEntityManager();
 
-        try (Session session = em.unwrap(Session.class)) {
-            Transaction tx;
-            tx = session.beginTransaction();
-            session.save(item);
-            tx.commit();
-        } catch (HibernateException e) {
-            throw new RuntimeException("Ты лох!", e);
-        }
+        EntityTransaction t = em.getTransaction();
+        t.begin();
+        em.persist(item);
+        t.commit();
+        em.close();
 
         return item;
     }
