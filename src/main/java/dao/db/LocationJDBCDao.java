@@ -78,6 +78,17 @@ public class LocationJDBCDao implements ILocationDao {
 
     @Override
     public void delete(Long id) {
+        try (EntityManager em = HibernateUtil.getEntityManager()) {
+            EntityTransaction tr = em.getTransaction();
+            Location item = em.find(Location.class, id);
 
+            tr.begin();
+            if (item != null) {
+                em.remove(item);
+            }
+            tr.commit();
+        } catch (PersistenceException e) {
+            throw new RuntimeException("Ошибка выполнения запроса", e);
+        }
     }
 }

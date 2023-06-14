@@ -32,10 +32,10 @@ public class LocationUpdateServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
         LocationCreateUpdateDTO locationDTOOld = new LocationCreateUpdateDTO("Брагин, Беларусь");
-        LocationDTO locationDTO = locationService
-                .update(locationDTOOld, objectMapper.readValue(req.getInputStream(), LocationCreateUpdateDTO.class));
+        LocationCreateUpdateDTO locationDTO = new LocationCreateUpdateDTO("Светлогорск, Беларусь");
 
-        resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+        locationService.update(locationDTOOld, locationDTO);
+
         writer.write(objectMapper.writeValueAsString(locationDTO));
     }
 }

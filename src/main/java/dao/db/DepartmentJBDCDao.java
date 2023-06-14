@@ -2,6 +2,7 @@ package dao.db;
 
 import dao.api.IDepartmentDao;
 import dao.entity.Department;
+import dao.entity.Location;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceException;
@@ -69,6 +70,17 @@ public class DepartmentJBDCDao implements IDepartmentDao {
 
     @Override
     public void delete(Long id) {
+        try (EntityManager em = HibernateUtil.getEntityManager()) {
+            EntityTransaction tr = em.getTransaction();
+            Department item = em.find(Department.class, id);
 
+            tr.begin();
+            if (item != null) {
+                em.remove(item);
+            }
+            tr.commit();
+        } catch (PersistenceException e) {
+            throw new RuntimeException("Ошибка выполнения запроса", e);
+        }
     }
 }
