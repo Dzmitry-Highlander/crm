@@ -34,9 +34,8 @@ public class DepartmentCreateServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         DepartmentDTO departmentDTO = departmentService
                 .create(objectMapper.readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class));
-        DepartmentShortDTO shortDTO = new DepartmentShortDTO(1L, departmentDTO.getName());
 
         resp.setStatus(HttpServletResponse.SC_CREATED);
-        writer.write(objectMapper.writeValueAsString(shortDTO));
+        writer.write(objectMapper.writeValueAsString(departmentDTO));
     }
 }
