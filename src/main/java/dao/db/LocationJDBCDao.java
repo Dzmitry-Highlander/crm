@@ -53,7 +53,16 @@ public class LocationJDBCDao implements ILocationDao {
 
     @Override
     public Location update(Location item) {
-        return null;
+        EntityManager em = HibernateUtil.getEntityManager();
+        EntityTransaction t = em.getTransaction();
+
+        t.begin();
+        em.merge(item);
+        t.commit();
+        em.refresh(item);
+        em.close();
+
+        return item;
     }
 
     @Override
