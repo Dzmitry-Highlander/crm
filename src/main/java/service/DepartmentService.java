@@ -44,7 +44,14 @@ public class DepartmentService implements IDepartmentService {
 
     @Override
     public DepartmentDTO create(DepartmentCreateUpdateDTO item) {
-        return null;
+        Department department = new Department();
+
+        department.setName(item.getName());
+        department.setParent(item.getParent());
+        department.setPhone(item.getPhone());
+        department.setLocation(item.getLocation());
+
+        return entityToDTO(department);
     }
 
     @Override
