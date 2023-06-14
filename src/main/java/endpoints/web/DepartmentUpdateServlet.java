@@ -1,30 +1,26 @@
 package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.dto.LocationDTO;
-import dao.entity.Location;
+import core.dto.DepartmentCreateUpdateDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.api.ILocationService;
-import service.factory.LocationServiceFactory;
+import service.api.IDepartmentService;
+import service.factory.DepartmentServiceFactory;
 import service.factory.ObjectMapperFactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
-@WebServlet("/api/location/read")
-public class LocationReadServlet extends HttpServlet {
-    private static final String ID = "id";
-    private final ILocationService locationService;
+@WebServlet("/api/department/update")
+public class DepartmentUpdateServlet extends HttpServlet {
+    private final IDepartmentService departmentService;
     private final ObjectMapper objectMapper;
 
-    public LocationReadServlet() {
-        this.locationService = LocationServiceFactory.getInstance();
+    public DepartmentUpdateServlet() {
+        this.departmentService = DepartmentServiceFactory.getInstance();
         this.objectMapper = ObjectMapperFactory.getInstance();
         this.objectMapper.findAndRegisterModules();
     }
@@ -33,10 +29,12 @@ public class LocationReadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
 
-        String id = req.getParameter(ID);
         PrintWriter writer = resp.getWriter();
-        LocationDTO dto = locationService.read(Long.parseLong(id));
+        DepartmentCreateUpdateDTO departmentDTO = objectMapper
+                .readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class);
 
-        writer.write(objectMapper.writeValueAsString(dto));
+        departmentService.update(departmentDTO);
+        resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+        writer.write(objectMapper.writeValueAsString(departmentDTO));
     }
 }

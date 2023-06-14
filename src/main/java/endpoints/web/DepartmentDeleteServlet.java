@@ -1,7 +1,6 @@
 package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.dto.DepartmentDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,13 +13,13 @@ import service.factory.ObjectMapperFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/api/department/read")
-public class DepartmentReadServlet extends HttpServlet {
+@WebServlet("/api/department/delete")
+public class DepartmentDeleteServlet extends HttpServlet {
     private static final String ID = "id";
     private final IDepartmentService departmentService;
     private final ObjectMapper objectMapper;
 
-    public DepartmentReadServlet() {
+    public DepartmentDeleteServlet() {
         this.departmentService = DepartmentServiceFactory.getInstance();
         this.objectMapper = ObjectMapperFactory.getInstance();
         this.objectMapper.findAndRegisterModules();
@@ -32,8 +31,8 @@ public class DepartmentReadServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
         String id = req.getParameter(ID);
-        DepartmentDTO departmentDTO = departmentService.read(Long.parseLong(id));
 
-        writer.write(objectMapper.writeValueAsString(departmentDTO));
+        departmentService.delete(Long.parseLong(id));
+        writer.write(objectMapper.writeValueAsString("OK"));
     }
 }

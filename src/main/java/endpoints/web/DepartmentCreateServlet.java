@@ -1,27 +1,27 @@
 package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.dto.LocationDTO;
+import core.dto.DepartmentCreateUpdateDTO;
+import core.dto.DepartmentDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.api.ILocationService;
-import service.factory.LocationServiceFactory;
+import service.api.IDepartmentService;
+import service.factory.DepartmentServiceFactory;
 import service.factory.ObjectMapperFactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
-@WebServlet("/api/location/read_all")
-public class LocationReadAllServlet extends HttpServlet {
-    private final ILocationService locationService;
+@WebServlet("/api/department/create")
+public class DepartmentCreateServlet extends HttpServlet {
+    private final IDepartmentService departmentService;
     private final ObjectMapper objectMapper;
 
-    public LocationReadAllServlet() {
-        this.locationService = LocationServiceFactory.getInstance();
+    public DepartmentCreateServlet() {
+        this.departmentService = DepartmentServiceFactory.getInstance();
         this.objectMapper = ObjectMapperFactory.getInstance();
         this.objectMapper.findAndRegisterModules();
     }
@@ -31,8 +31,10 @@ public class LocationReadAllServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        List<LocationDTO> locationDTOS = locationService.read();
+        DepartmentDTO departmentDTO = departmentService
+                .create(objectMapper.readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class));
 
-        writer.write(objectMapper.writeValueAsString(locationDTOS));
+        resp.setStatus(HttpServletResponse.SC_CREATED);
+        writer.write(objectMapper.writeValueAsString(departmentDTO));
     }
 }
