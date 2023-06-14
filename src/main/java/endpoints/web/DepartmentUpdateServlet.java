@@ -2,7 +2,7 @@ package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.dto.DepartmentCreateUpdateDTO;
-import core.dto.DepartmentDTO;
+import core.dto.LocationCreateUpdateDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,7 +15,6 @@ import service.factory.ObjectMapperFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-//TODO не работает DepartmentUpdateServlet
 @WebServlet("/api/department/update")
 public class DepartmentUpdateServlet extends HttpServlet {
     private final IDepartmentService departmentService;
@@ -32,7 +31,11 @@ public class DepartmentUpdateServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
+        DepartmentCreateUpdateDTO departmentDTO = objectMapper
+                .readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class);
 
+        departmentService.update(departmentDTO);
         resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+        writer.write(objectMapper.writeValueAsString(departmentDTO));
     }
 }

@@ -15,7 +15,6 @@ import service.factory.ObjectMapperFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-//TODO не работает LocationUpdateServlet
 @WebServlet("/api/location/update")
 public class LocationUpdateServlet extends HttpServlet {
     private final ILocationService locationService;
@@ -32,11 +31,11 @@ public class LocationUpdateServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        LocationCreateUpdateDTO locationDTOOld = new LocationCreateUpdateDTO("Брагин, Беларусь");
-        LocationCreateUpdateDTO locationDTO = new LocationCreateUpdateDTO("Светлогорск, Беларусь");
+        LocationCreateUpdateDTO locationDTO = objectMapper
+                .readValue(req.getInputStream(), LocationCreateUpdateDTO.class);
 
-        locationService.update(locationDTOOld, locationDTO);
-
+        locationService.update(locationDTO);
+        resp.setStatus(HttpServletResponse.SC_ACCEPTED);
         writer.write(objectMapper.writeValueAsString(locationDTO));
     }
 }
