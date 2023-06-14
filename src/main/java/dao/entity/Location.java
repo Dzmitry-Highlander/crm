@@ -1,9 +1,6 @@
 package dao.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,7 +8,8 @@ import java.util.Objects;
 @Entity
 public class Location implements Serializable {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "location", sequenceName = "crm.location_location_id_seq")
+    @GeneratedValue(generator = "location", strategy = GenerationType.SEQUENCE)
     @Column(name = "location_id")
     private Long id;
     @Column(name = "name")
