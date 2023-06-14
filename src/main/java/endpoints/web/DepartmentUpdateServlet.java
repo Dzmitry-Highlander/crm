@@ -31,10 +31,7 @@ public class DepartmentUpdateServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        DepartmentDTO departmentDTO = departmentService
-                .update(objectMapper.readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class));
 
         resp.setStatus(HttpServletResponse.SC_ACCEPTED);
-        writer.write(objectMapper.writeValueAsString(departmentDTO));
     }
 }
