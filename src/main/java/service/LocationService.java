@@ -70,6 +70,6 @@ public class LocationService implements ILocationService {
 
     @Override
     public void delete(Long id) {
-
+        locationDao.delete(id);
     }
 }
