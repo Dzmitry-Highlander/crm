@@ -15,6 +15,7 @@ import service.factory.ObjectMapperFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+//TODO не работает LocationUpdateServlet
 @WebServlet("/api/location/update")
 public class LocationUpdateServlet extends HttpServlet {
     private final ILocationService locationService;

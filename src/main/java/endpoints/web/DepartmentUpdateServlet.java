@@ -15,6 +15,7 @@ import service.factory.ObjectMapperFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+//TODO не работает DepartmentUpdateServlet
 @WebServlet("/api/department/update")
 public class DepartmentUpdateServlet extends HttpServlet {
     private final IDepartmentService departmentService;
