@@ -2,7 +2,6 @@ package dao.db;
 
 import dao.api.IDepartmentDao;
 import dao.entity.Department;
-import dao.entity.Location;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceException;
