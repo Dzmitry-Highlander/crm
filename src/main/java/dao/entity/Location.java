@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Location implements Serializable {
     @Id
     @SequenceGenerator(name = "location", sequenceName = "crm.location_location_id_seq", allocationSize = 1)
-    @GeneratedValue(generator = "location", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "location", strategy = GenerationType.IDENTITY)
     @Column(name = "location_id")
     private Long id;
     @Column(name = "name")
