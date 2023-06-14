@@ -3,7 +3,6 @@ package endpoints.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.dto.DepartmentCreateUpdateDTO;
 import core.dto.DepartmentDTO;
-import core.dto.DepartmentShortDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

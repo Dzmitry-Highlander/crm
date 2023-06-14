@@ -2,7 +2,6 @@ package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.dto.LocationCreateUpdateDTO;
-import core.dto.LocationDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

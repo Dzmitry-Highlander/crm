@@ -7,15 +7,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.api.IDepartmentService;
-import service.api.ILocationService;
 import service.factory.DepartmentServiceFactory;
-import service.factory.LocationServiceFactory;
 import service.factory.ObjectMapperFactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/api/location/delete")
+@WebServlet("/api/department/delete")
 public class DepartmentDeleteServlet extends HttpServlet {
     private static final String ID = "id";
     private final IDepartmentService departmentService;
