@@ -1,19 +1,16 @@
 package core.dto;
 
-import dao.entity.Department;
-import dao.entity.Location;
-
 public class DepartmentDTO {
     private Long id;
     private String name;
-    private Department parent;
+    private DepartmentShortDTO parent;
     private String phone;
-    private Location location;
+    private LocationDTO location;
 
     public DepartmentDTO() {
     }
 
-    public DepartmentDTO(Long id, String name, Department parent, String phone, Location location) {
+    public DepartmentDTO(Long id, String name, DepartmentShortDTO parent, String phone, LocationDTO location) {
         this.id = id;
         this.name = name;
         this.parent = parent;
@@ -37,11 +34,11 @@ public class DepartmentDTO {
         this.name = name;
     }
 
-    public Department getParent() {
+    public DepartmentShortDTO getParent() {
         return parent;
     }
 
-    public void setParent(Department parent) {
+    public void setParent(DepartmentShortDTO parent) {
         this.parent = parent;
     }
 
@@ -53,11 +50,11 @@ public class DepartmentDTO {
         this.phone = phone;
     }
 
-    public Location getLocation() {
+    public LocationDTO getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(LocationDTO location) {
         this.location = location;
     }
 }
