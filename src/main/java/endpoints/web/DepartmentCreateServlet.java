@@ -31,10 +31,9 @@ public class DepartmentCreateServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        DepartmentDTO dto = departmentService
-                .create(objectMapper.readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class));
+        DepartmentCreateUpdateDTO dto = objectMapper.readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class);
+        DepartmentDTO departmentDTO = departmentService.create(dto);
 
-
-        writer.write(objectMapper.writeValueAsString(dto));
+        writer.write(objectMapper.writeValueAsString(departmentDTO));
     }
 }

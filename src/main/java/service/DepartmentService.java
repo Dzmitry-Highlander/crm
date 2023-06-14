@@ -3,6 +3,7 @@ package service;
 import core.dto.DepartmentCreateUpdateDTO;
 import core.dto.DepartmentDTO;
 import dao.api.IDepartmentDao;
+import dao.api.ILocationDao;
 import dao.entity.Department;
 import service.api.IDepartmentService;
 
@@ -11,9 +12,11 @@ import java.util.List;
 
 public class DepartmentService implements IDepartmentService {
     private final IDepartmentDao departmentDao;
+    private final ILocationDao locationDao;
 
-    public DepartmentService(IDepartmentDao departmentDao) {
+    public DepartmentService(IDepartmentDao departmentDao, ILocationDao locationDao) {
         this.departmentDao = departmentDao;
+        this.locationDao = locationDao;
     }
 
     @Override
@@ -45,19 +48,11 @@ public class DepartmentService implements IDepartmentService {
     @Override
     public DepartmentDTO create(DepartmentCreateUpdateDTO item) {
         DepartmentDTO dto = new DepartmentDTO();
-        Department department = new Department();
 
         dto.setName(item.getName());
-        dto.setParent(item.getParent());
+        dto.setParent(departmentDao.read(item.getParent()));
         dto.setPhone(item.getPhone());
-        dto.setLocation(item.getLocation());
-
-        department.setName(dto.getName());
-        department.setParent(dto.getParent());
-        department.setPhone(dto.getPhone());
-        department.setLocation(dto.getLocation());
-
-        departmentDao.create(department);
+        dto.setLocation(locationDao.read(item.getLocation()));
 
         return dto;
     }
