@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 public class Location implements Serializable {
     @Id
-    @SequenceGenerator(name = "location", sequenceName = "crm.location_location_id_seq")
+    @SequenceGenerator(name = "location", sequenceName = "crm.location_location_id_seq", allocationSize = 1)
     @GeneratedValue(generator = "location", strategy = GenerationType.SEQUENCE)
     @Column(name = "location_id")
     private Long id;

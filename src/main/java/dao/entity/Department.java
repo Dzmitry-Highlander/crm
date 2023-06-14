@@ -7,7 +7,8 @@ import java.io.Serializable;
 @Entity
 public class Department implements Serializable {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "department", sequenceName = "crm.department_department_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "department", strategy = GenerationType.SEQUENCE)
     @Column(name = "department_id")
     private Long id;
     @Column(name = "name")
