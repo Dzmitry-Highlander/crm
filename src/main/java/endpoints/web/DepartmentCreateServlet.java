@@ -1,26 +1,27 @@
 package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import core.dto.DepartmentCreateUpdateDTO;
 import core.dto.LocationCreateUpdateDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.api.ILocationService;
-import service.factory.LocationServiceFactory;
+import service.api.IDepartmentService;
+import service.factory.DepartmentServiceFactory;
 import service.factory.ObjectMapperFactory;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/api/location/create")
-public class LocationCreateServlet extends HttpServlet {
-    private final ILocationService locationService;
+@WebServlet("/api/department/create")
+public class DepartmentCreateServlet extends HttpServlet {
+    private final IDepartmentService departmentService;
     private final ObjectMapper objectMapper;
 
-    public LocationCreateServlet() {
-        this.locationService = LocationServiceFactory.getInstance();
+    public DepartmentCreateServlet() {
+        this.departmentService = DepartmentServiceFactory.getInstance();
         this.objectMapper = ObjectMapperFactory.getInstance();
         this.objectMapper.findAndRegisterModules();
     }
@@ -30,9 +31,9 @@ public class LocationCreateServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        LocationCreateUpdateDTO dto = objectMapper.readValue(req.getInputStream(), LocationCreateUpdateDTO.class);
+        DepartmentCreateUpdateDTO dto = objectMapper.readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class);
 
-        locationService.create(dto);
+        departmentService.create(dto);
         writer.write(objectMapper.writeValueAsString(dto));
     }
 }
