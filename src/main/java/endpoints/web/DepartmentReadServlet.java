@@ -30,8 +30,8 @@ public class DepartmentReadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
 
-        String id = req.getParameter(ID);
         PrintWriter writer = resp.getWriter();
+        String id = req.getParameter(ID);
         DepartmentDTO dto =departmentService.read(Long.parseLong(id));
 
         writer.write(objectMapper.writeValueAsString(dto));
