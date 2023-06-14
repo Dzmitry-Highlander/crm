@@ -18,8 +18,8 @@ public class LocationJDBCDao implements ILocationDao {
     @Override
     public Location create(Location item) {
         EntityManager em = HibernateUtil.getEntityManager();
-
         EntityTransaction t = em.getTransaction();
+
         t.begin();
         em.persist(item);
         t.commit();
