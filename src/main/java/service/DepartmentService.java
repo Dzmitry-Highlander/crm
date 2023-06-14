@@ -77,8 +77,8 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public DepartmentDTO update(DepartmentCreateUpdateDTO item) {
-        Department department = departmentDao.update(dtoToEntity(item));
+    public DepartmentDTO update(DepartmentCreateUpdateDTO item, DepartmentCreateUpdateDTO update) {
+        Department department = departmentDao.update(dtoToEntity(item), dtoToEntity(update));
 
         return entityToDTO(department);
     }

@@ -5,9 +5,7 @@ import dao.entity.Location;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceException;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -55,17 +53,22 @@ public class LocationJDBCDao implements ILocationDao {
     }
 
     @Override
-    public Location update(Location item) {
-        EntityManager em = HibernateUtil.getEntityManager();
-        EntityTransaction t = em.getTransaction();
+    public Location update(Location item, Location update) {
+        try (EntityManager em = HibernateUtil.getEntityManager()) {
+            EntityTransaction t = em.getTransaction();
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaUpdate<Location> criteriaUpdate = cb.createCriteriaUpdate(Location.class);
+            Root<Location> locationRoot = criteriaUpdate.from(Location.class);
+            criteriaUpdate.set("name", update.getName());
+            criteriaUpdate.where(cb.equal(locationRoot.get("name"), item.getName()));
 
-        t.begin();
-        em.merge(item);
-        t.commit();
-        em.refresh(item);
-        em.close();
+            em.getTransaction().begin();
+            em.getTransaction().commit();
+        } catch (PersistenceException e) {
+            throw new RuntimeException("Ошибка выполнения запроса", e);
+        }
 
-        return item;
+        return update;
     }
 
     @Override
