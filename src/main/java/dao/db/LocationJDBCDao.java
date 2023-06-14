@@ -53,27 +53,20 @@ public class LocationJDBCDao implements ILocationDao {
     }
 
     @Override
-    public Location update(Location item, Location update) {
+    public void update(Location item) {
         try (EntityManager em = HibernateUtil.getEntityManager()) {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
+            EntityTransaction tr = em.getTransaction();
+            Location location = em.find(Location.class, item.getId());
 
-            // create update
-            CriteriaUpdate<Location> criteriaUpdate = cb.createCriteriaUpdate(Location.class);
-
-            // set the root class
-            Root<Location> r = criteriaUpdate.from(Location.class);
-
-            // set update and where clause
-            criteriaUpdate.set(r.get("name"), update.getName())
-                    .where(cb.equal(r.get("name"), item.getName()));
-
-            // perform update
-            em.createQuery(criteriaUpdate).executeUpdate();
+            tr.begin();
+            if (location != null) {
+                location.setName(item.getName());
+                em.merge(location);
+            }
+            tr.commit();
         } catch (PersistenceException e) {
             throw new RuntimeException("Ошибка выполнения запроса", e);
         }
-
-        return item;
     }
 
     @Override

@@ -53,19 +53,20 @@ public class DepartmentJBDCDao implements IDepartmentDao {
     }
 
     @Override
-    public Department update(Department item, Department update) {
+    public void update(Department item) {
         try (EntityManager em = HibernateUtil.getEntityManager()) {
-            EntityTransaction t = em.getTransaction();
+            EntityTransaction tr = em.getTransaction();
+            Department department = em.find(Department.class, item.getName());
 
-            t.begin();
-            em.merge(item);
-            t.commit();
-            em.refresh(item);
+            tr.begin();
+            if (department != null) {
+                department.setName(item.getName());
+                em.merge(item);
+            }
+            tr.commit();
         } catch (PersistenceException e) {
             throw new RuntimeException("Ошибка выполнения запроса", e);
         }
-
-        return item;
     }
 
     @Override

@@ -62,10 +62,8 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public LocationDTO update(LocationCreateUpdateDTO item, LocationCreateUpdateDTO update) {
-        Location location = locationDao.update(new Location(item.getName()), dtoToEntity(update));
-
-        return entityToDTO(location);
+    public void update(LocationCreateUpdateDTO item) {
+        locationDao.update(dtoToEntity(item));
     }
 
     @Override
