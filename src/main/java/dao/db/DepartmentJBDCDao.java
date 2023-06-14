@@ -20,11 +20,10 @@ public class DepartmentJBDCDao implements IDepartmentDao {
         t.begin();
         em.persist(item);
         t.commit();
-        Department department = em.find(Department.class, item);
-        t.commit();
+        em.refresh(item);
         em.close();
 
-        return department;
+        return item;
     }
 
     @Override

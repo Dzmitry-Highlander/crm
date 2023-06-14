@@ -23,6 +23,7 @@ public class LocationJDBCDao implements ILocationDao {
         t.begin();
         em.persist(item);
         t.commit();
+        em.refresh(item);
         em.close();
 
         return item;
