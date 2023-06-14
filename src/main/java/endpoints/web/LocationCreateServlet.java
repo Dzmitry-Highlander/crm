@@ -30,8 +30,9 @@ public class LocationCreateServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
+        LocationCreateUpdateDTO dto =objectMapper.readValue(req.getInputStream(), LocationCreateUpdateDTO.class);
 
-        writer.write(objectMapper.writeValueAsString(locationService
-                .create(new LocationCreateUpdateDTO("Брест, Беларусь"))));
+        locationService.create(dto);
+        writer.write(objectMapper.writeValueAsString(dto));
     }
 }
