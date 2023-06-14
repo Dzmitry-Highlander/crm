@@ -32,6 +32,8 @@ public class LocationDeleteServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
         String id = req.getParameter(ID);
+
         locationService.delete(Long.parseLong(id));
+        writer.write(objectMapper.writeValueAsString("OK"));
     }
 }
