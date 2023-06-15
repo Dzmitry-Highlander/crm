@@ -1,6 +1,6 @@
 package service;
 
-import core.dto.LocationCreateUpdateDTO;
+import core.dto.LocationCreateDTO;
 import core.dto.LocationDTO;
 import dao.api.ILocationDao;
 import dao.entity.Location;
@@ -17,7 +17,7 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public Location dtoToEntity(LocationCreateUpdateDTO item) {
+    public Location dtoToEntity(LocationCreateDTO item) {
         Location location = new Location();
 
         if (item.getId() != null) {
@@ -39,7 +39,7 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public LocationDTO create(LocationCreateUpdateDTO item) {
+    public LocationDTO create(LocationCreateDTO item) {
         Location location = locationDao.create(dtoToEntity(item));
 
         return entityToDTO(location);
@@ -65,7 +65,7 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public LocationDTO update(LocationCreateUpdateDTO item) {
+    public LocationDTO update(LocationCreateDTO item) {
         Location location = locationDao.update(dtoToEntity(item));
 
         return entityToDTO(location);

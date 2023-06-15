@@ -1,7 +1,7 @@
 package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.dto.LocationCreateUpdateDTO;
+import core.dto.LocationCreateDTO;
 import core.dto.LocationDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -52,7 +52,7 @@ public class LocationServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
         LocationDTO locationDTO = locationService
-                .create(objectMapper.readValue(req.getInputStream(), LocationCreateUpdateDTO.class));
+                .create(objectMapper.readValue(req.getInputStream(), LocationCreateDTO.class));
 
         resp.setStatus(HttpServletResponse.SC_CREATED);
         writer.write(objectMapper.writeValueAsString(locationDTO));
@@ -63,8 +63,8 @@ public class LocationServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        LocationCreateUpdateDTO locationDTO = objectMapper
-                .readValue(req.getInputStream(), LocationCreateUpdateDTO.class);
+        LocationCreateDTO locationDTO = objectMapper
+                .readValue(req.getInputStream(), LocationCreateDTO.class);
 
         locationService.update(locationDTO);
         resp.setStatus(HttpServletResponse.SC_ACCEPTED);

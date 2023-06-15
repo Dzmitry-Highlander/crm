@@ -53,9 +53,14 @@ public class LocationJDBCDao implements ILocationDao {
     public Location update(Location item) {
         try (EntityManager em = HibernateUtil.getEntityManager()) {
             EntityTransaction tr = em.getTransaction();
+            Location location = em.find(Location.class, item.getId());
 
             tr.begin();
-            em.merge(item);
+            if (location != null) {
+                location.setName(item.getName());
+                em.merge(location);
+            }
+
             tr.commit();
             em.refresh(item);
         } catch (PersistenceException e) {

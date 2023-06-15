@@ -55,9 +55,14 @@ public class DepartmentJBDCDao implements IDepartmentDao {
     public Department update(Department item) {
         try (EntityManager em = HibernateUtil.getEntityManager()) {
             EntityTransaction tr = em.getTransaction();
+            Department department = em.find(Department.class, item.getName());
 
             tr.begin();
-            em.merge(item);
+            if (department != null) {
+                department.setName(item.getName());
+                em.merge(item);
+            }
+
             tr.commit();
             em.refresh(item);
         } catch (PersistenceException e) {

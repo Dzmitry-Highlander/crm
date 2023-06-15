@@ -1,11 +1,11 @@
 package service.api;
 
-import core.dto.DepartmentCreateUpdateDTO;
+import core.dto.DepartmentCreateDTO;
 import core.dto.DepartmentDTO;
 import dao.entity.Department;
 
-public interface IDepartmentService extends IServiceCRUD<DepartmentCreateUpdateDTO, DepartmentDTO> {
-    Department dtoToEntity(DepartmentCreateUpdateDTO item);
+public interface IDepartmentService extends IServiceCRUD<DepartmentCreateDTO, DepartmentDTO> {
+    Department dtoToEntity(DepartmentCreateDTO item);
 
     DepartmentDTO entityToDTO(Department item);
 }

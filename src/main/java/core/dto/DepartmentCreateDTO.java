@@ -2,7 +2,7 @@ package core.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class DepartmentCreateUpdateDTO {
+public class DepartmentCreateDTO {
     @JsonProperty("department_id")
     private Long id;
     @JsonProperty("name")
@@ -14,17 +14,17 @@ public class DepartmentCreateUpdateDTO {
     @JsonProperty("location_id")
     private Long location;
 
-    public DepartmentCreateUpdateDTO() {
+    public DepartmentCreateDTO() {
     }
 
-    public DepartmentCreateUpdateDTO(String name, Long parent, String phone, Long location) {
+    public DepartmentCreateDTO(String name, Long parent, String phone, Long location) {
         this.name = name;
         this.parent = parent;
         this.phone = phone;
         this.location = location;
     }
 
-    public DepartmentCreateUpdateDTO(Long id, String name, Long parent, String phone, Long location) {
+    public DepartmentCreateDTO(Long id, String name, Long parent, String phone, Long location) {
         this.id = id;
         this.name = name;
         this.parent = parent;

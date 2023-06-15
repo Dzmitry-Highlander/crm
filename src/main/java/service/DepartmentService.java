@@ -1,6 +1,6 @@
 package service;
 
-import core.dto.DepartmentCreateUpdateDTO;
+import core.dto.DepartmentCreateDTO;
 import core.dto.DepartmentDTO;
 import core.dto.DepartmentShortDTO;
 import core.dto.LocationDTO;
@@ -22,7 +22,7 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public Department dtoToEntity(DepartmentCreateUpdateDTO item) {
+    public Department dtoToEntity(DepartmentCreateDTO item) {
         Department department = new Department();
 
         if (item.getId() != null) {
@@ -54,7 +54,7 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public DepartmentDTO create(DepartmentCreateUpdateDTO item) {
+    public DepartmentDTO create(DepartmentCreateDTO item) {
         Department department = departmentDao.create(dtoToEntity(item));
 
         return entityToDTO(department);
@@ -80,7 +80,7 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public DepartmentDTO update(DepartmentCreateUpdateDTO item) {
+    public DepartmentDTO update(DepartmentCreateDTO item) {
         Department department = departmentDao.update(dtoToEntity(item));
 
         return entityToDTO(department);
