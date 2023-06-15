@@ -3,7 +3,7 @@ package core.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LocationCreateUpdateDTO {
-    @JsonProperty("id")
+    @JsonProperty("location_id")
     private Long id;
     @JsonProperty("name")
     private String name;
