@@ -25,6 +25,9 @@ public class DepartmentService implements IDepartmentService {
     public Department dtoToEntity(DepartmentCreateUpdateDTO item) {
         Department department = new Department();
 
+        if (item.getId() != null) {
+            department.setId(item.getId());
+        }
         department.setName(item.getName());
         if (item.getParent() != null) {
             department.setParent(departmentDao.read(item.getParent()));
