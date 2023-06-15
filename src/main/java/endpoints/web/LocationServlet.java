@@ -51,9 +51,9 @@ public class LocationServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        LocationDTO locationDTO = locationService
-                .create(objectMapper.readValue(req.getInputStream(), LocationCreateDTO.class));
+        LocationCreateDTO locationDTO = objectMapper.readValue(req.getInputStream(), LocationCreateDTO.class);
 
+        locationService.create(locationDTO);
         resp.setStatus(HttpServletResponse.SC_CREATED);
         writer.write(objectMapper.writeValueAsString(locationDTO));
     }
@@ -67,7 +67,6 @@ public class LocationServlet extends HttpServlet {
                 .readValue(req.getInputStream(), LocationDTO.class);
 
         locationService.update(locationDTO);
-        resp.setStatus(HttpServletResponse.SC_ACCEPTED);
         writer.write(objectMapper.writeValueAsString(locationDTO));
     }
 
