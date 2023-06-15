@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("api/department")
+@WebServlet("/api/department")
 public class DepartmentServlet extends HttpServlet {
     private static final String ID = "id";
     private final IDepartmentService departmentService;
