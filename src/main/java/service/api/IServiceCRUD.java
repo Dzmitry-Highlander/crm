@@ -9,7 +9,7 @@ public interface IServiceCRUD<T, S> {
 
     List<S> read();
 
-    S update(T item);
+    S update(S item);
 
     void delete(Long id);
 }

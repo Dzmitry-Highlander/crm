@@ -5,7 +5,7 @@ import core.dto.DepartmentDTO;
 import dao.entity.Department;
 
 public interface IDepartmentService extends IServiceCRUD<DepartmentCreateDTO, DepartmentDTO> {
-    Department dtoToEntity(DepartmentCreateDTO item);
+    Department dtoToEntity(DepartmentDTO item);
 
     DepartmentDTO entityToDTO(Department item);
 }

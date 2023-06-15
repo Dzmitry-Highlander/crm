@@ -17,9 +17,10 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public Location dtoToEntity(LocationCreateDTO item) {
+    public Location dtoToEntity(LocationDTO item) {
         Location location = new Location();
 
+        location.setId(item.getId());
         location.setName(item.getName());
 
         return location;
@@ -37,7 +38,9 @@ public class LocationService implements ILocationService {
 
     @Override
     public LocationDTO create(LocationCreateDTO item) {
-        Location location = locationDao.create(dtoToEntity(item));
+        Location location = new Location();
+
+        location.setName(item.getName());
 
         return entityToDTO(location);
     }
@@ -62,7 +65,7 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public LocationDTO update(LocationCreateDTO item) {
+    public LocationDTO update(LocationDTO item) {
         Location location = locationDao.update(dtoToEntity(item));
 
         return entityToDTO(location);

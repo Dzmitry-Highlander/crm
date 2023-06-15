@@ -63,8 +63,8 @@ public class LocationServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        LocationCreateDTO locationDTO = objectMapper
-                .readValue(req.getInputStream(), LocationCreateDTO.class);
+        LocationDTO locationDTO = objectMapper
+                .readValue(req.getInputStream(), LocationDTO.class);
 
         locationService.update(locationDTO);
         resp.setStatus(HttpServletResponse.SC_ACCEPTED);

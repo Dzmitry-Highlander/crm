@@ -82,6 +82,7 @@ public class DepartmentJBDCDao implements IDepartmentDao {
             if (item != null) {
                 em.remove(item);
             }
+
             tr.commit();
         } catch (PersistenceException e) {
             throw new RuntimeException("Ошибка выполнения запроса", e);

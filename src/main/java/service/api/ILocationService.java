@@ -5,7 +5,7 @@ import core.dto.LocationDTO;
 import dao.entity.Location;
 
 public interface ILocationService extends IServiceCRUD<LocationCreateDTO, LocationDTO> {
-    Location dtoToEntity(LocationCreateDTO item);
+    Location dtoToEntity(LocationDTO item);
 
     LocationDTO entityToDTO(Location item);
 }
