@@ -62,7 +62,6 @@ public class LocationJDBCDao implements ILocationDao {
             }
 
             tr.commit();
-            em.refresh(item);
         } catch (PersistenceException e) {
             throw new RuntimeException("Ошибка выполнения запроса", e);
         }
