@@ -44,6 +44,8 @@ public class LocationService implements ILocationService {
 
         location.setName(item.getName());
 
+        locationDao.create(location);
+
         return entityToDTO(location);
     }
 

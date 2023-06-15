@@ -21,7 +21,6 @@ public class DepartmentJBDCDao implements IDepartmentDao {
             t.begin();
             em.persist(item);
             t.commit();
-            em.refresh(item);
         } catch (PersistenceException e) {
             throw new RuntimeException("Ошибка выполнения запроса", e);
         }

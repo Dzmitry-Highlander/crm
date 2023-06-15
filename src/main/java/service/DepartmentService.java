@@ -62,6 +62,8 @@ public class DepartmentService implements IDepartmentService {
         department.setPhone(item.getPhone());
         department.setLocation(locationDao.read(item.getId()));
 
+        departmentDao.create(department);
+
         return entityToDTO(department);
     }
 
