@@ -20,7 +20,9 @@ public class LocationService implements ILocationService {
     public Location dtoToEntity(LocationDTO item) {
         Location location = new Location();
 
-        location.setId(item.getId());
+        if (item.getId() != null) {
+            location.setId(item.getId());
+        }
         location.setName(item.getName());
 
         return location;
