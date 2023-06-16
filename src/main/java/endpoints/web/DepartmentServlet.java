@@ -29,7 +29,7 @@ public class DepartmentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
@@ -47,11 +47,12 @@ public class DepartmentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        DepartmentCreateUpdateDTO departmentDTO = objectMapper.readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class);
+        DepartmentCreateUpdateDTO departmentDTO = objectMapper
+                .readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class);
 
         departmentService.create(departmentDTO);
         resp.setStatus(HttpServletResponse.SC_CREATED);
@@ -59,7 +60,7 @@ public class DepartmentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
@@ -71,7 +72,7 @@ public class DepartmentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
