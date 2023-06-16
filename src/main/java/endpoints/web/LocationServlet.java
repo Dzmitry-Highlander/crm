@@ -1,7 +1,6 @@
 package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.dto.DepartmentDTO;
 import core.dto.LocationCreateUpdateDTO;
 import core.dto.LocationDTO;
 import dao.entity.Location;
@@ -43,7 +42,6 @@ public class LocationServlet extends HttpServlet {
 
         if (req.getParameter(ID) != null) {
             String id = req.getParameter(ID);
-
             Location location = locationService.read(Long.parseLong(id));
 
             writer.write(objectMapper.writeValueAsString(locationConverterUtil.entityToDTO(location)));
@@ -59,48 +57,48 @@ public class LocationServlet extends HttpServlet {
         }
     }
 
-    //@Override
-    //protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    //    resp.setContentType("application/json");
-//
-    //    PrintWriter writer = resp.getWriter();
-    //    LocationCreateUpdateDTO locationDTO = objectMapper
-    //            .readValue(req.getInputStream(), LocationCreateUpdateDTO.class);
-//
-    //    locationService.create(locationDTO);
-    //    resp.setStatus(HttpServletResponse.SC_CREATED);
-    //    writer.write(objectMapper.writeValueAsString(locationDTO));
-    //}
-//
-    //@Override
-    //protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    //    resp.setContentType("application/json");
-//
-    //    PrintWriter writer = resp.getWriter();
-    //    LocationDTO locationDTO = objectMapper
-    //            .readValue(req.getInputStream(), LocationDTO.class);
-//
-    //    locationService.update(locationDTO);
-    //    writer.write(objectMapper.writeValueAsString(locationDTO));
-    //}
-//
-    //@Override
-    //protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    //    resp.setContentType("application/json");
-//
-    //    PrintWriter writer = resp.getWriter();
-//
-    //    try {
-    //        if (req.getParameter(ID) != null) {
-    //            String id = req.getParameter(ID);
-//
-    //            locationService.delete(Long.parseLong(id));
-    //            writer.write(objectMapper.writeValueAsString("DELETED"));
-    //        } else {
-    //            throw new IllegalArgumentException("Укажите id!");
-    //        }
-    //    } catch (IllegalArgumentException e) {
-    //        log(e.getMessage());
-    //    }
-    //}
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setContentType("application/json");
+
+        PrintWriter writer = resp.getWriter();
+        LocationCreateUpdateDTO locationDTO = objectMapper
+                .readValue(req.getInputStream(), LocationCreateUpdateDTO.class);
+        Location location = locationService.create(locationDTO);
+
+        resp.setStatus(HttpServletResponse.SC_CREATED);
+        writer.write(objectMapper.writeValueAsString(locationConverterUtil.entityToDTO(location)));
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setContentType("application/json");
+
+        PrintWriter writer = resp.getWriter();
+        LocationCreateUpdateDTO locationDTO = objectMapper
+                .readValue(req.getInputStream(), LocationCreateUpdateDTO.class);
+        Location location = locationService.create(locationDTO);
+
+        writer.write(objectMapper.writeValueAsString(locationConverterUtil.entityToDTO(location)));
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setContentType("application/json");
+
+        PrintWriter writer = resp.getWriter();
+
+        try {
+            if (req.getParameter(ID) != null) {
+                String id = req.getParameter(ID);
+
+                locationService.delete(Long.parseLong(id));
+                writer.write(objectMapper.writeValueAsString("DELETED"));
+            } else {
+                throw new IllegalArgumentException("Укажите id!");
+            }
+        } catch (IllegalArgumentException e) {
+            log(e.getMessage());
+        }
+    }
 }
