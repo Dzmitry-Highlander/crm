@@ -3,13 +3,13 @@ package service.api;
 import java.util.List;
 
 public interface IServiceCRUD<T, S> {
-    S create(T item);
+    T create(S item);
 
-    S read(Long id);
+    T read(Long id);
 
-    List<S> read();
+    List<T> read();
 
-    S update(S item);
+    T update(Long id, S item);
 
     void delete(Long id);
 }

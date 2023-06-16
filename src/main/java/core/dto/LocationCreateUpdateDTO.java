@@ -2,14 +2,14 @@ package core.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class LocationCreateDTO {
+public class LocationCreateUpdateDTO {
     @JsonProperty("name")
     private String name;
 
-    public LocationCreateDTO() {
+    public LocationCreateUpdateDTO() {
     }
 
-    public LocationCreateDTO(String name) {
+    public LocationCreateUpdateDTO(String name) {
         this.name = name;
     }
 
