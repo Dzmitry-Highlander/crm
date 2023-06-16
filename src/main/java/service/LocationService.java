@@ -1,12 +1,10 @@
 package service;
 
 import core.dto.LocationCreateUpdateDTO;
-import core.dto.LocationDTO;
 import dao.api.ILocationDao;
 import dao.entity.Location;
 import service.api.ILocationService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LocationService implements ILocationService {
@@ -17,60 +15,23 @@ public class LocationService implements ILocationService {
     }
 
     @Override
-    public Location dtoToEntity(LocationDTO item) {
-        Location location = new Location();
-
-        location.setId(item.getId());
-        location.setName(item.getName());
-
-        return location;
+    public Location create(LocationCreateUpdateDTO item) {
+        return locationDao.create(new Location(item.getName()));
     }
 
     @Override
-    public LocationDTO entityToDTO(Location item) {
-        LocationDTO locationDTO = new LocationDTO();
-
-        locationDTO.setId(item.getId());
-        locationDTO.setName(item.getName());
-
-        return locationDTO;
+    public Location read(Long id) {
+        return locationDao.read(id);
     }
 
     @Override
-    public LocationDTO create(LocationCreateUpdateDTO item) {
-        Location location = new Location();
-
-        location.setName(item.getName());
-
-        locationDao.create(location);
-
-        return entityToDTO(location);
+    public List<Location> read() {
+        return locationDao.read();
     }
 
     @Override
-    public LocationDTO read(Long id) {
-        Location location = locationDao.read(id);
-
-        return entityToDTO(location);
-    }
-
-    @Override
-    public List<LocationDTO> read() {
-        List<Location> locations = locationDao.read();
-        List<LocationDTO> locationDTOS = new ArrayList<>();
-
-        for (Location location : locations) {
-            locationDTOS.add(entityToDTO(location));
-        }
-
-        return locationDTOS;
-    }
-
-    @Override
-    public LocationDTO update(LocationDTO item) {
-        Location location = locationDao.update(dtoToEntity(item));
-
-        return entityToDTO(location);
+    public Location update(Long id, LocationCreateUpdateDTO item) {
+        return locationDao.update(id, new Location(item.getName()));
     }
 
     @Override
