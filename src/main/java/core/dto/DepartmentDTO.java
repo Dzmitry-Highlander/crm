@@ -1,9 +1,6 @@
 package core.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class DepartmentDTO {
-    @JsonProperty("department_id")
     private Long id;
     private String name;
     private DepartmentShortDTO parent;

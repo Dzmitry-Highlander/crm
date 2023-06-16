@@ -1,7 +1,7 @@
 package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.dto.DepartmentCreateDTO;
+import core.dto.DepartmentCreateUpdateDTO;
 import core.dto.DepartmentDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -51,7 +51,7 @@ public class DepartmentServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        DepartmentCreateDTO departmentDTO = objectMapper.readValue(req.getInputStream(), DepartmentCreateDTO.class);
+        DepartmentCreateUpdateDTO departmentDTO = objectMapper.readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class);
 
         departmentService.create(departmentDTO);
         resp.setStatus(HttpServletResponse.SC_CREATED);

@@ -1,6 +1,6 @@
 package service;
 
-import core.dto.DepartmentCreateDTO;
+import core.dto.DepartmentCreateUpdateDTO;
 import core.dto.DepartmentDTO;
 import core.dto.DepartmentShortDTO;
 import core.dto.LocationDTO;
@@ -52,7 +52,7 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public DepartmentDTO create(DepartmentCreateDTO item) {
+    public DepartmentDTO create(DepartmentCreateUpdateDTO item) {
         Department department = new Department();
 
         department.setName(item.getName());
