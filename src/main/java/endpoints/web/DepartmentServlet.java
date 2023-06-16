@@ -27,57 +27,57 @@ public class DepartmentServlet extends HttpServlet {
         this.objectMapper.findAndRegisterModules();
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("application/json");
-
-        PrintWriter writer = resp.getWriter();
-
-        if (req.getParameter(ID) != null) {
-            String id = req.getParameter(ID);
-            DepartmentDTO departmentDTO = departmentService.read(Long.parseLong(id));
-
-            writer.write(objectMapper.writeValueAsString(departmentDTO));
-        } else {
-            List<DepartmentDTO> departmentDTOS = departmentService.read();
-
-            writer.write(objectMapper.writeValueAsString(departmentDTOS));
-        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("application/json");
-
-        PrintWriter writer = resp.getWriter();
-        DepartmentCreateUpdateDTO departmentDTO = objectMapper
-                .readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class);
-
-        departmentService.create(departmentDTO);
-        resp.setStatus(HttpServletResponse.SC_CREATED);
-        writer.write(objectMapper.writeValueAsString(departmentDTO));
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("application/json");
-
-        PrintWriter writer = resp.getWriter();
-        DepartmentDTO departmentDTO = objectMapper
-                .readValue(req.getInputStream(), DepartmentDTO.class);
-
-        departmentService.update(departmentDTO);
-        writer.write(objectMapper.writeValueAsString(departmentDTO));
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("application/json");
-
-        PrintWriter writer = resp.getWriter();
-        String id = req.getParameter(ID);
-
-        departmentService.delete(Long.parseLong(id));
-        writer.write(objectMapper.writeValueAsString("OK"));
-    }
+    //@Override
+    //protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    //    resp.setContentType("application/json");
+//
+    //    PrintWriter writer = resp.getWriter();
+//
+    //    if (req.getParameter(ID) != null) {
+    //        String id = req.getParameter(ID);
+    //        DepartmentDTO departmentDTO = departmentService.read(Long.parseLong(id));
+//
+    //        writer.write(objectMapper.writeValueAsString(departmentDTO));
+    //    } else {
+    //        List<DepartmentDTO> departmentDTOS = departmentService.read();
+//
+    //        writer.write(objectMapper.writeValueAsString(departmentDTOS));
+    //    }
+    //}
+//
+    //@Override
+    //protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    //    resp.setContentType("application/json");
+//
+    //    PrintWriter writer = resp.getWriter();
+    //    DepartmentCreateUpdateDTO departmentDTO = objectMapper
+    //            .readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class);
+//
+    //    departmentService.create(departmentDTO);
+    //    resp.setStatus(HttpServletResponse.SC_CREATED);
+    //    writer.write(objectMapper.writeValueAsString(departmentDTO));
+    //}
+//
+    //@Override
+    //protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    //    resp.setContentType("application/json");
+//
+    //    PrintWriter writer = resp.getWriter();
+    //    DepartmentDTO departmentDTO = objectMapper
+    //            .readValue(req.getInputStream(), DepartmentDTO.class);
+//
+    //    departmentService.update(departmentDTO);
+    //    writer.write(objectMapper.writeValueAsString(departmentDTO));
+    //}
+//
+    //@Override
+    //protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    //    resp.setContentType("application/json");
+//
+    //    PrintWriter writer = resp.getWriter();
+    //    String id = req.getParameter(ID);
+//
+    //    departmentService.delete(Long.parseLong(id));
+    //    writer.write(objectMapper.writeValueAsString("OK"));
+    //}
 }
