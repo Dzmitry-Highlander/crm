@@ -19,30 +19,41 @@ public class DepartmentService implements IDepartmentService {
 
     @Override
     public Department create(DepartmentCreateUpdateDTO item) {
-        return null;
+        return departmentDao.create(DTOtoEntity(item));
     }
 
     @Override
     public Department read(Long id) {
-        Department department = departmentDao.read(id);
-
-        return null;
+        return departmentDao.read(id);
     }
 
     @Override
     public List<Department> read() {
-        List<Department> departments = departmentDao.read();
-
-        return null;
+        return departmentDao.read();
     }
 
     @Override
     public Department update(Long id, DepartmentCreateUpdateDTO item) {
-        return null;
+        return departmentDao.update(id, DTOtoEntity(item));
     }
 
     @Override
     public void delete(Long id) {
         departmentDao.delete(id);
+    }
+
+    public Department DTOtoEntity(DepartmentCreateUpdateDTO item) {
+        Department department = new Department();
+
+        department.setName(item.getName());
+
+        if (item.getParent() != null) {
+            departmentDao.read(item.getParent());
+        }
+
+        department.setPhone(item.getPhone());
+        department.setLocation(locationDao.read(item.getLocation()));
+
+        return department;
     }
 }
