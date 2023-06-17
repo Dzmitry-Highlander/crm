@@ -6,16 +6,18 @@ public class DepartmentDTO {
     private DepartmentShortDTO parent;
     private String phone;
     private LocationDTO location;
+    private Long version;
 
     public DepartmentDTO() {
     }
 
-    public DepartmentDTO(Long id, String name, DepartmentShortDTO parent, String phone, LocationDTO location) {
+    public DepartmentDTO(Long id, String name, DepartmentShortDTO parent, String phone, LocationDTO location, Long version) {
         this.id = id;
         this.name = name;
         this.parent = parent;
         this.phone = phone;
         this.location = location;
+        this.version = version;
     }
 
     public Long getId() {
@@ -56,5 +58,13 @@ public class DepartmentDTO {
 
     public void setLocation(LocationDTO location) {
         this.location = location;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }
