@@ -53,6 +53,7 @@ public class LocationServlet extends HttpServlet {
                 locationDTOS.add(locationConverterUtil.entityToDTO(location));
             }
 
+            resp.setStatus(HttpServletResponse.SC_OK);
             writer.write(objectMapper.writeValueAsString(locationDTOS));
         }
     }
@@ -80,6 +81,7 @@ public class LocationServlet extends HttpServlet {
                 .readValue(req.getInputStream(), LocationCreateUpdateDTO.class);
         Location location = locationService.update(Long.parseLong(id), locationDTO);
 
+        resp.setStatus(HttpServletResponse.SC_OK);
         writer.write(objectMapper.writeValueAsString(locationConverterUtil.entityToDTO(location)));
     }
 
@@ -94,12 +96,13 @@ public class LocationServlet extends HttpServlet {
                 String id = req.getParameter(ID);
 
                 locationService.delete(Long.parseLong(id));
-                writer.write(objectMapper.writeValueAsString("DELETED"));
             } else {
                 throw new IllegalArgumentException("Укажите id!");
             }
         } catch (IllegalArgumentException e) {
             log(e.getMessage());
         }
+
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 }
