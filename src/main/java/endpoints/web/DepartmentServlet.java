@@ -100,6 +100,6 @@ public class DepartmentServlet extends HttpServlet {
             log(e.getMessage());
         }
 
-        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 }
