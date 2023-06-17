@@ -3,6 +3,7 @@ package endpoints.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.dto.LocationCreateDTO;
 import core.dto.LocationDTO;
+import core.dto.LocationUpdateDTO;
 import dao.entity.Location;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,12 +17,14 @@ import service.util.LocationConverterUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/api/location")
 public class LocationServlet extends HttpServlet {
     private static final String ID = "id";
+    private static final String UPDATE_DATE = "update_date";
     private final ILocationService locationService;
     private final LocationConverterUtil locationConverterUtil;
     private final ObjectMapper objectMapper;
@@ -76,9 +79,10 @@ public class LocationServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
         String id = req.getParameter(ID);
-        LocationCreateDTO locationDTO = objectMapper
-                .readValue(req.getInputStream(), LocationCreateDTO.class);
-        Location location = locationService.update(Long.parseLong(id), locationDTO);
+        String updateDate = req.getParameter(UPDATE_DATE);
+        LocationUpdateDTO locationDTO = objectMapper
+                .readValue(req.getInputStream(), LocationUpdateDTO.class);
+        Location location = locationService.update(Long.parseLong(id), LocalDateTime.parse(updateDate), locationDTO);
 
         resp.setStatus(HttpServletResponse.SC_OK);
         writer.write(objectMapper.writeValueAsString(locationConverterUtil.entityToDTO(location)));

@@ -9,7 +9,7 @@ public interface ICRUDDao<T> {
 
     List<T> read();
 
-    T update(Long id, T item);
+    T update(T item);
 
     void delete(Long id);
 }

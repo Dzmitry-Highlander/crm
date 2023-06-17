@@ -3,6 +3,7 @@ package dao.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -14,25 +15,25 @@ public class Location implements Serializable {
     private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "version")
-    private Long version;
+    @Column(name = "update_Date")
+    private LocalDateTime updateDate;
+    @Column(name = "create_date")
+    private LocalDateTime createDate;
 
     public Location() {
     }
 
-    public Location(String name) {
+    public Location(String name, LocalDateTime updateDate, LocalDateTime createDate) {
         this.name = name;
+        this.updateDate = updateDate;
+        this.createDate = createDate;
     }
 
-    public Location(String name, Long version) {
-        this.name = name;
-        this.version = version;
-    }
-
-    public Location(Long id, String name, Long version) {
+    public Location(Long id, String name, LocalDateTime updateDate, LocalDateTime createDate) {
         this.id = id;
         this.name = name;
-        this.version = version;
+        this.updateDate = updateDate;
+        this.createDate = createDate;
     }
 
     public Long getId() {
@@ -51,12 +52,20 @@ public class Location implements Serializable {
         this.name = name;
     }
 
-    public Long getVersion() {
-        return version;
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
     }
 
-    public void setVersion(Long version) {
-        this.version = version;
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
     }
 
     @Override
@@ -64,11 +73,12 @@ public class Location implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Location location)) return false;
         return Objects.equals(getId(), location.getId()) && Objects.equals(getName(),
-                location.getName()) && Objects.equals(getVersion(), location.getVersion());
+                location.getName()) && Objects.equals(getUpdateDate(),
+                location.getUpdateDate()) && Objects.equals(getCreateDate(), location.getCreateDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getVersion());
+        return Objects.hash(getId(), getName(), getUpdateDate(), getCreateDate());
     }
 }

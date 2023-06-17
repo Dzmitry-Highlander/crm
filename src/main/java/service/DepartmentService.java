@@ -3,24 +3,27 @@ package service;
 import core.dto.DepartmentCreateDTO;
 import core.dto.DepartmentUpdateDTO;
 import dao.api.IDepartmentDao;
+import dao.api.ILocationDao;
 import dao.entity.Department;
-import service.api.IDepartmentConverterUtil;
 import service.api.IDepartmentService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class DepartmentService implements IDepartmentService {
     private final IDepartmentDao departmentDao;
-    private final IDepartmentConverterUtil departmentConverterUtil;
+    private final ILocationDao locationDao;
 
-    public DepartmentService(IDepartmentDao departmentDao, IDepartmentConverterUtil departmentConverterUtil) {
+    public DepartmentService(IDepartmentDao departmentDao, ILocationDao locationDao) {
         this.departmentDao = departmentDao;
-        this.departmentConverterUtil = departmentConverterUtil;
+        this.locationDao = locationDao;
     }
 
     @Override
     public Department create(DepartmentCreateDTO item) {
-        return departmentDao.create(departmentConverterUtil.CreateDTOtoEntity(item));
+        Department department = new Department();
+
+        return departmentDao.create(department);
     }
 
     @Override
@@ -34,8 +37,29 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public Department update(Long id, DepartmentUpdateDTO item) {
-        return departmentDao.update(id, departmentConverterUtil.UpdateDTOtoEntity(item));
+    public Department update(Long id, LocalDateTime date, DepartmentUpdateDTO item) throws IllegalArgumentException {
+        Department department = departmentDao.read(id);
+
+        if (department != null) {
+            if (department.getUpdateDate().equals(date)) {
+                department.setId(id);
+                department.setName(item.getName());
+
+                if (item.getParent() != null) {
+                    department.setParent(departmentDao.read(id).getParent());
+                }
+                department.setPhone(item.getPhone());
+                department.setLocation(locationDao.read(item.getLocation()));
+
+                departmentDao.update(department);
+
+                return department;
+            }
+
+            throw new IllegalArgumentException("Объект был обновлен!");
+        }
+
+        throw new IllegalArgumentException("Департамент не найден!");
     }
 
     @Override

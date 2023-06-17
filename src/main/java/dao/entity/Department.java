@@ -3,6 +3,7 @@ package dao.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -26,34 +27,33 @@ public class Department implements Serializable {
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
-    @Column(name = "version")
-    private Long version;
+    @Column(name = "update_Date")
+    private LocalDateTime updateDate;
+    @Column(name = "create_date")
+    private LocalDateTime createDate;
 
     public Department() {
     }
 
-    public Department(String name, Department parent, String phone, Location location) {
+    public Department(String name, Department parent, String phone, Location location, LocalDateTime updateDate,
+                      LocalDateTime createDate) {
         this.name = name;
         this.parent = parent;
         this.phone = phone;
         this.location = location;
+        this.updateDate = updateDate;
+        this.createDate = createDate;
     }
 
-    public Department(String name, Department parent, String phone, Location location, Long version) {
-        this.name = name;
-        this.parent = parent;
-        this.phone = phone;
-        this.location = location;
-        this.version = version;
-    }
-
-    public Department(Long id, String name, Department parent, String phone, Location location, Long version) {
+    public Department(Long id, String name, Department parent, String phone, Location location,
+                      LocalDateTime updateDate, LocalDateTime createDate) {
         this.id = id;
         this.name = name;
         this.parent = parent;
         this.phone = phone;
         this.location = location;
-        this.version = version;
+        this.updateDate = updateDate;
+        this.createDate = createDate;
     }
 
     public Long getId() {
@@ -96,12 +96,20 @@ public class Department implements Serializable {
         this.location = location;
     }
 
-    public Long getVersion() {
-        return version;
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
     }
 
-    public void setVersion(Long version) {
-        this.version = version;
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
     }
 
     @Override
@@ -110,12 +118,13 @@ public class Department implements Serializable {
         if (!(o instanceof Department that)) return false;
         return Objects.equals(getId(), that.getId()) && Objects.equals(getName(),
                 that.getName()) && Objects.equals(getParent(), that.getParent()) && Objects.equals(getPhone(),
-                that.getPhone()) && Objects.equals(getLocation(), that.getLocation()) && Objects.equals(getVersion(),
-                that.getVersion());
+                that.getPhone()) && Objects.equals(getLocation(), that.getLocation()) && Objects.equals(getUpdateDate(),
+                that.getUpdateDate()) && Objects.equals(getCreateDate(), that.getCreateDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getParent(), getPhone(), getLocation(), getVersion());
+        return Objects.hash(getId(), getName(), getParent(), getPhone(), getLocation(), getUpdateDate(),
+                getCreateDate());
     }
 }

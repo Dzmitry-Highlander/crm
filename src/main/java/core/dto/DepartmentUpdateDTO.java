@@ -2,6 +2,8 @@ package core.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDateTime;
+
 public class DepartmentUpdateDTO {
     @JsonProperty("name")
     private String name;
@@ -11,18 +13,18 @@ public class DepartmentUpdateDTO {
     private String phone;
     @JsonProperty("location_id")
     private Long location;
-    @JsonProperty("version")
-    private Long version;
+    @JsonProperty("update_date")
+    private LocalDateTime updateDate;
 
     public DepartmentUpdateDTO() {
     }
 
-    public DepartmentUpdateDTO(String name, Long parent, String phone, Long location, Long version) {
+    public DepartmentUpdateDTO(String name, Long parent, String phone, Long location, LocalDateTime updateDate) {
         this.name = name;
         this.parent = parent;
         this.phone = phone;
         this.location = location;
-        this.version = version;
+        this.updateDate = updateDate;
     }
 
     public String getName() {
@@ -57,11 +59,11 @@ public class DepartmentUpdateDTO {
         this.location = location;
     }
 
-    public Long getVersion() {
-        return version;
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
     }
 
-    public void setVersion(Long version) {
-        this.version = version;
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
     }
 }

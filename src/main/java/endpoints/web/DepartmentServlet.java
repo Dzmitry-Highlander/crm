@@ -3,6 +3,7 @@ package endpoints.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.dto.DepartmentCreateDTO;
 import core.dto.DepartmentDTO;
+import core.dto.DepartmentUpdateDTO;
 import dao.entity.Department;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,12 +17,14 @@ import service.util.DepartmentConverterUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/api/department")
 public class DepartmentServlet extends HttpServlet {
     private static final String ID = "id";
+    private static final String UPDATE_DATE = "update_date";
     private final IDepartmentService departmentService;
     private final DepartmentConverterUtil departmentConverterUtil;
     private final ObjectMapper objectMapper;
@@ -75,9 +78,11 @@ public class DepartmentServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
         String id = req.getParameter(ID);
-        DepartmentCreateDTO departmentDTO = objectMapper
-                .readValue(req.getInputStream(), DepartmentCreateDTO.class);
-        Department department = departmentService.update(Long.parseLong(id), departmentDTO);
+        String updateDate = req.getParameter(UPDATE_DATE);
+        DepartmentUpdateDTO departmentDTO = objectMapper
+                .readValue(req.getInputStream(), DepartmentUpdateDTO.class);
+        Department department = departmentService.update(Long.parseLong(id), LocalDateTime.parse(updateDate),
+                departmentDTO);
 
         writer.write(objectMapper.writeValueAsString(departmentConverterUtil.entityToDTO(department)));
     }
