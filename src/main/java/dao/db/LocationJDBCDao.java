@@ -50,9 +50,10 @@ public class LocationJDBCDao implements ILocationDao {
     }
 
     @Override
-    public void update(Location item) {
+    public Location update(Long id, Location item) {
         try (EntityManager em = HibernateUtil.getEntityManager()) {
             EntityTransaction tr = em.getTransaction();
+            item.setId(id);
             Location location = em.find(Location.class, item.getId());
 
             tr.begin();
@@ -60,10 +61,13 @@ public class LocationJDBCDao implements ILocationDao {
                 location.setName(item.getName());
                 em.merge(location);
             }
+
             tr.commit();
         } catch (PersistenceException e) {
             throw new RuntimeException("Ошибка выполнения запроса", e);
         }
+
+        return item;
     }
 
     @Override
@@ -76,6 +80,7 @@ public class LocationJDBCDao implements ILocationDao {
             if (item != null) {
                 em.remove(item);
             }
+
             tr.commit();
         } catch (PersistenceException e) {
             throw new RuntimeException("Ошибка выполнения запроса", e);

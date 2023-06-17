@@ -21,7 +21,6 @@ public class DepartmentJBDCDao implements IDepartmentDao {
             t.begin();
             em.persist(item);
             t.commit();
-            em.refresh(item);
         } catch (PersistenceException e) {
             throw new RuntimeException("Ошибка выполнения запроса", e);
         }
@@ -52,20 +51,24 @@ public class DepartmentJBDCDao implements IDepartmentDao {
     }
 
     @Override
-    public void update(Department item) {
+    public Department update(Long id, Department item) {
         try (EntityManager em = HibernateUtil.getEntityManager()) {
             EntityTransaction tr = em.getTransaction();
-            Department department = em.find(Department.class, item.getName());
+            Department department = em.find(Department.class, id);
 
             tr.begin();
             if (department != null) {
                 department.setName(item.getName());
                 em.merge(item);
             }
+
             tr.commit();
+            em.refresh(item);
         } catch (PersistenceException e) {
             throw new RuntimeException("Ошибка выполнения запроса", e);
         }
+
+        return item;
     }
 
     @Override
@@ -78,6 +81,7 @@ public class DepartmentJBDCDao implements IDepartmentDao {
             if (item != null) {
                 em.remove(item);
             }
+
             tr.commit();
         } catch (PersistenceException e) {
             throw new RuntimeException("Ошибка выполнения запроса", e);

@@ -1,15 +1,11 @@
 package service;
 
 import core.dto.DepartmentCreateUpdateDTO;
-import core.dto.DepartmentDTO;
-import core.dto.DepartmentShortDTO;
-import core.dto.LocationDTO;
 import dao.api.IDepartmentDao;
 import dao.api.ILocationDao;
 import dao.entity.Department;
 import service.api.IDepartmentService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentService implements IDepartmentService {
@@ -22,67 +18,42 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public Department dtoToEntity(DepartmentCreateUpdateDTO item) {
-        Department department = new Department();
-
-        department.setName(item.getName());
-        if (item.getParent() != null) {
-            department.setParent(departmentDao.read(item.getParent()));
-        }
-        department.setPhone(item.getPhone());
-        department.setLocation(locationDao.read(item.getLocation()));
-
-        return department;
+    public Department create(DepartmentCreateUpdateDTO item) {
+        return departmentDao.create(DTOtoEntity(item));
     }
 
     @Override
-    public DepartmentDTO entityToDTO(Department item) {
-        DepartmentDTO departmentDTO = new DepartmentDTO();
-
-        departmentDTO.setId(item.getId());
-        departmentDTO.setName(item.getName());
-        if (item.getParent() != null) {
-            departmentDTO.setParent(new DepartmentShortDTO(item.getParent().getId(), item.getParent().getName()));
-        }
-        departmentDTO.setPhone(item.getPhone());
-        departmentDTO.setLocation(new LocationDTO(item.getLocation().getId(), item.getLocation().getName()));
-
-        return departmentDTO;
+    public Department read(Long id) {
+        return departmentDao.read(id);
     }
 
     @Override
-    public DepartmentDTO create(DepartmentCreateUpdateDTO item) {
-        Department department = departmentDao.create(dtoToEntity(item));
-
-        return entityToDTO(department);
+    public List<Department> read() {
+        return departmentDao.read();
     }
 
     @Override
-    public DepartmentDTO read(Long id) {
-        Department department = departmentDao.read(id);
-
-        return entityToDTO(department);
-    }
-
-    @Override
-    public List<DepartmentDTO> read() {
-        List<Department> departments = departmentDao.read();
-        List<DepartmentDTO> departmentDTOS = new ArrayList<>();
-
-        for (Department department : departments) {
-            departmentDTOS.add(entityToDTO(department));
-        }
-
-        return departmentDTOS;
-    }
-
-    @Override
-    public void update(DepartmentCreateUpdateDTO item) {
-        departmentDao.update(dtoToEntity(item));
+    public Department update(Long id, DepartmentCreateUpdateDTO item) {
+        return departmentDao.update(id, DTOtoEntity(item));
     }
 
     @Override
     public void delete(Long id) {
         departmentDao.delete(id);
+    }
+
+    public Department DTOtoEntity(DepartmentCreateUpdateDTO item) {
+        Department department = new Department();
+
+        department.setName(item.getName());
+
+        if (item.getParent() != null) {
+            departmentDao.read(item.getParent());
+        }
+
+        department.setPhone(item.getPhone());
+        department.setLocation(locationDao.read(item.getLocation()));
+
+        return department;
     }
 }
