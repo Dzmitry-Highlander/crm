@@ -48,6 +48,7 @@ public class DepartmentService implements IDepartmentService {
                 if (item.getParent() != null) {
                     department.setParent(departmentDao.read(id).getParent());
                 }
+
                 department.setPhone(item.getPhone());
                 department.setLocation(locationDao.read(item.getLocation()));
 
