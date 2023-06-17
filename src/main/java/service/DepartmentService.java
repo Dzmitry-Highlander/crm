@@ -51,9 +51,7 @@ public class DepartmentService implements IDepartmentService {
                 department.setPhone(item.getPhone());
                 department.setLocation(locationDao.read(item.getLocation()));
 
-                departmentDao.update(department);
-
-                return department;
+                return departmentDao.update(department);
             }
 
             throw new IllegalArgumentException("Объект был обновлен!");

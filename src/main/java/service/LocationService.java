@@ -49,9 +49,7 @@ public class LocationService implements ILocationService {
                 location.setUpdateDate(LocalDateTime.now());
                 location.setCreateDate(locationDao.read(id).getCreateDate());
 
-                locationDao.update(location);
-
-                return location;
+                return locationDao.update(location);
             }
 
             throw new IllegalArgumentException("Объект был обновлен!");
