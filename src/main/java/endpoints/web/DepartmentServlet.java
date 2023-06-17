@@ -77,14 +77,27 @@ public class DepartmentServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        String id = req.getParameter(ID);
-        String updateDate = req.getParameter(UPDATE_DATE);
         DepartmentUpdateDTO departmentDTO = objectMapper
                 .readValue(req.getInputStream(), DepartmentUpdateDTO.class);
-        Department department = departmentService.update(Long.parseLong(id), LocalDateTime.parse(updateDate),
-                departmentDTO);
 
-        writer.write(objectMapper.writeValueAsString(departmentConverterUtil.entityToDTO(department)));
+        try {
+            if (req.getParameter(ID) != null && req.getParameter(UPDATE_DATE) != null) {
+                String id = req.getParameter(ID);
+                String updateDate = req.getParameter(UPDATE_DATE);
+
+
+                Department department = departmentService.update(Long.parseLong(id), LocalDateTime.parse(updateDate),
+                        departmentDTO);
+
+                writer.write(objectMapper.writeValueAsString(departmentConverterUtil.entityToDTO(department)));
+            } else {
+                throw new IllegalArgumentException("Укажите id!");
+            }
+        } catch (IllegalArgumentException e) {
+            log(e.getMessage());
+
+            writer.write(e.getMessage());
+        }
     }
 
     @Override
