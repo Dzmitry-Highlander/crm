@@ -5,16 +5,16 @@ import java.time.LocalDateTime;
 public class LocationDTO {
     private Long id;
     private String name;
-    private LocalDateTime version;
+    private LocalDateTime updateDate;
     private LocalDateTime createDate;
 
     public LocationDTO() {
     }
 
-    public LocationDTO(Long id, String name, LocalDateTime version, LocalDateTime createDate) {
+    public LocationDTO(Long id, String name, LocalDateTime updateDate, LocalDateTime createDate) {
         this.id = id;
         this.name = name;
-        this.version = version;
+        this.updateDate = updateDate;
         this.createDate = createDate;
     }
 
@@ -34,12 +34,12 @@ public class LocationDTO {
         this.name = name;
     }
 
-    public LocalDateTime getVersion() {
-        return version;
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
     }
 
-    public void setVersion(LocalDateTime version) {
-        this.version = version;
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
     }
 
     public LocalDateTime getCreateDate() {
