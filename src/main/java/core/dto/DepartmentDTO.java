@@ -8,20 +8,20 @@ public class DepartmentDTO {
     private DepartmentShortDTO parent;
     private String phone;
     private LocationShortDTO location;
-    private LocalDateTime version;
+    private LocalDateTime updateDate;
     private LocalDateTime createDate;
 
     public DepartmentDTO() {
     }
 
     public DepartmentDTO(Long id, String name, DepartmentShortDTO parent, String phone, LocationShortDTO location,
-                         LocalDateTime version, LocalDateTime createDate) {
+                         LocalDateTime updateDate, LocalDateTime createDate) {
         this.id = id;
         this.name = name;
         this.parent = parent;
         this.phone = phone;
         this.location = location;
-        this.version = version;
+        this.updateDate = updateDate;
         this.createDate = createDate;
     }
 
@@ -65,12 +65,12 @@ public class DepartmentDTO {
         this.location = location;
     }
 
-    public LocalDateTime getVersion() {
-        return version;
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
     }
 
-    public void setVersion(LocalDateTime version) {
-        this.version = version;
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
     }
 
     public LocalDateTime getCreateDate() {
