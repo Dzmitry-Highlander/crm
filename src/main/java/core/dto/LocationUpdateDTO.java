@@ -8,6 +8,9 @@ public class LocationUpdateDTO {
     @JsonProperty("version")
     private Long version;
 
+    public LocationUpdateDTO() {
+    }
+
     public LocationUpdateDTO(String name, Long version) {
         this.name = name;
         this.version = version;
