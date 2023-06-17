@@ -1,24 +1,28 @@
 package core.dto;
 
+import java.time.LocalDateTime;
+
 public class DepartmentDTO {
     private Long id;
     private String name;
     private DepartmentShortDTO parent;
     private String phone;
     private LocationDTO location;
-    private Long version;
+    private LocalDateTime version;
+    private LocalDateTime createDate;
 
     public DepartmentDTO() {
     }
 
     public DepartmentDTO(Long id, String name, DepartmentShortDTO parent, String phone, LocationDTO location,
-                         Long version) {
+                         LocalDateTime version, LocalDateTime createDate) {
         this.id = id;
         this.name = name;
         this.parent = parent;
         this.phone = phone;
         this.location = location;
         this.version = version;
+        this.createDate = createDate;
     }
 
     public Long getId() {
@@ -61,11 +65,19 @@ public class DepartmentDTO {
         this.location = location;
     }
 
-    public Long getVersion() {
+    public LocalDateTime getVersion() {
         return version;
     }
 
-    public void setVersion(Long version) {
+    public void setVersion(LocalDateTime version) {
         this.version = version;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
     }
 }
