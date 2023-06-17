@@ -3,6 +3,7 @@ package dao.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public class Department implements Serializable {
@@ -25,6 +26,8 @@ public class Department implements Serializable {
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
+    @Column(name = "version")
+    private Long version;
 
     public Department() {
     }
@@ -36,12 +39,21 @@ public class Department implements Serializable {
         this.location = location;
     }
 
-    public Department(Long id, String name, Department parent, String phone, Location location) {
+    public Department(String name, Department parent, String phone, Location location, Long version) {
+        this.name = name;
+        this.parent = parent;
+        this.phone = phone;
+        this.location = location;
+        this.version = version;
+    }
+
+    public Department(Long id, String name, Department parent, String phone, Location location, Long version) {
         this.id = id;
         this.name = name;
         this.parent = parent;
         this.phone = phone;
         this.location = location;
+        this.version = version;
     }
 
     public Long getId() {
@@ -82,5 +94,28 @@ public class Department implements Serializable {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Department that)) return false;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getName(),
+                that.getName()) && Objects.equals(getParent(), that.getParent()) && Objects.equals(getPhone(),
+                that.getPhone()) && Objects.equals(getLocation(), that.getLocation()) && Objects.equals(getVersion(),
+                that.getVersion());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getParent(), getPhone(), getLocation(), getVersion());
     }
 }

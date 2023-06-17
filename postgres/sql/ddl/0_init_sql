@@ -16,8 +16,8 @@ CREATE TABLE crm.department (
 );
 
 CREATE TABLE crm.department_relations (
-    child_id bigint NOT NULL,
     parent_id bigint NOT NULL,
-    FOREIGN KEY (child_id) REFERENCES crm.department(department_id),
-    FOREIGN KEY (parent_id) REFERENCES crm.department(department_id)
+    child_id bigint NOT NULL,
+    FOREIGN KEY (parent_id) REFERENCES crm.department(department_id),
+    FOREIGN KEY (child_id) REFERENCES crm.department(department_id)
 );
