@@ -1,7 +1,7 @@
 package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.dto.DepartmentCreateUpdateDTO;
+import core.dto.DepartmentCreateDTO;
 import core.dto.DepartmentDTO;
 import dao.entity.Department;
 import jakarta.servlet.annotation.WebServlet;
@@ -61,8 +61,8 @@ public class DepartmentServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        DepartmentCreateUpdateDTO departmentDTO = objectMapper
-                .readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class);
+        DepartmentCreateDTO departmentDTO = objectMapper
+                .readValue(req.getInputStream(), DepartmentCreateDTO.class);
         Department department = departmentService.create(departmentDTO);
 
         resp.setStatus(HttpServletResponse.SC_CREATED);
@@ -75,8 +75,8 @@ public class DepartmentServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
         String id = req.getParameter(ID);
-        DepartmentCreateUpdateDTO departmentDTO = objectMapper
-                .readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class);
+        DepartmentCreateDTO departmentDTO = objectMapper
+                .readValue(req.getInputStream(), DepartmentCreateDTO.class);
         Department department = departmentService.update(Long.parseLong(id), departmentDTO);
 
         writer.write(objectMapper.writeValueAsString(departmentConverterUtil.entityToDTO(department)));
