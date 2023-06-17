@@ -11,7 +11,8 @@ public class DepartmentDTO {
     public DepartmentDTO() {
     }
 
-    public DepartmentDTO(Long id, String name, DepartmentShortDTO parent, String phone, LocationDTO location, Long version) {
+    public DepartmentDTO(Long id, String name, DepartmentShortDTO parent, String phone, LocationDTO location,
+                         Long version) {
         this.id = id;
         this.name = name;
         this.parent = parent;
