@@ -26,7 +26,6 @@ public class LocationServlet extends HttpServlet {
     private final LocationConverterUtil locationConverterUtil;
     private final ObjectMapper objectMapper;
 
-
     public LocationServlet() {
         this.locationService = LocationServiceFactory.getInstance();
         this.locationConverterUtil = LocationConverterUtilFactory.getInstance();
