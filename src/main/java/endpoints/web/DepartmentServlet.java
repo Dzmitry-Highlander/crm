@@ -84,14 +84,12 @@ public class DepartmentServlet extends HttpServlet {
             if (req.getParameter(ID) != null && req.getParameter(UPDATE_DATE) != null) {
                 String id = req.getParameter(ID);
                 String updateDate = req.getParameter(UPDATE_DATE);
-
-
                 Department department = departmentService.update(Long.parseLong(id), LocalDateTime.parse(updateDate),
                         departmentDTO);
 
                 writer.write(objectMapper.writeValueAsString(departmentConverterUtil.entityToDTO(department)));
             } else {
-                throw new IllegalArgumentException("Укажите id!");
+                throw new IllegalArgumentException("Укажите id и дату последнего обновления объекта!");
             }
         } catch (IllegalArgumentException e) {
             log(e.getMessage());

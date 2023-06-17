@@ -78,14 +78,26 @@ public class LocationServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        String id = req.getParameter(ID);
-        String updateDate = req.getParameter(UPDATE_DATE);
         LocationUpdateDTO locationDTO = objectMapper
                 .readValue(req.getInputStream(), LocationUpdateDTO.class);
-        Location location = locationService.update(Long.parseLong(id), LocalDateTime.parse(updateDate), locationDTO);
 
-        resp.setStatus(HttpServletResponse.SC_OK);
-        writer.write(objectMapper.writeValueAsString(locationConverterUtil.entityToDTO(location)));
+        try {
+            if (req.getParameter(ID) != null && req.getParameter(UPDATE_DATE) != null) {
+                String id = req.getParameter(ID);
+                String updateDate = req.getParameter(UPDATE_DATE);
+                Location location = locationService.update(Long.parseLong(id), LocalDateTime.parse(updateDate),
+                        locationDTO);
+
+                resp.setStatus(HttpServletResponse.SC_OK);
+                writer.write(objectMapper.writeValueAsString(locationConverterUtil.entityToDTO(location)));
+            } else {
+                throw new IllegalArgumentException("Укажите id и дату последнего обновления объекта!");
+            }
+        } catch (IllegalArgumentException e) {
+            log(e.getMessage());
+
+            writer.write(e.getMessage());
+        }
     }
 
     @Override
