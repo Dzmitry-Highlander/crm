@@ -7,14 +7,14 @@ public class DepartmentDTO {
     private String name;
     private DepartmentShortDTO parent;
     private String phone;
-    private LocationDTO location;
+    private LocationShortDTO location;
     private LocalDateTime version;
     private LocalDateTime createDate;
 
     public DepartmentDTO() {
     }
 
-    public DepartmentDTO(Long id, String name, DepartmentShortDTO parent, String phone, LocationDTO location,
+    public DepartmentDTO(Long id, String name, DepartmentShortDTO parent, String phone, LocationShortDTO location,
                          LocalDateTime version, LocalDateTime createDate) {
         this.id = id;
         this.name = name;
@@ -57,11 +57,11 @@ public class DepartmentDTO {
         this.phone = phone;
     }
 
-    public LocationDTO getLocation() {
+    public LocationShortDTO getLocation() {
         return location;
     }
 
-    public void setLocation(LocationDTO location) {
+    public void setLocation(LocationShortDTO location) {
         this.location = location;
     }
 
