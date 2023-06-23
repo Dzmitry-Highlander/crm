@@ -1,8 +1,9 @@
 package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.dto.DepartmentCreateUpdateDTO;
+import core.dto.DepartmentCreateDTO;
 import core.dto.DepartmentDTO;
+import core.dto.DepartmentUpdateDTO;
 import dao.entity.Department;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,12 +17,14 @@ import service.util.DepartmentConverterUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/api/department")
 public class DepartmentServlet extends HttpServlet {
     private static final String ID = "id";
+    private static final String UPDATE_DATE = "update_date";
     private final IDepartmentService departmentService;
     private final DepartmentConverterUtil departmentConverterUtil;
     private final ObjectMapper objectMapper;
@@ -61,8 +64,8 @@ public class DepartmentServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        DepartmentCreateUpdateDTO departmentDTO = objectMapper
-                .readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class);
+        DepartmentCreateDTO departmentDTO = objectMapper
+                .readValue(req.getInputStream(), DepartmentCreateDTO.class);
         Department department = departmentService.create(departmentDTO);
 
         resp.setStatus(HttpServletResponse.SC_CREATED);
@@ -74,12 +77,25 @@ public class DepartmentServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        String id = req.getParameter(ID);
-        DepartmentCreateUpdateDTO departmentDTO = objectMapper
-                .readValue(req.getInputStream(), DepartmentCreateUpdateDTO.class);
-        Department department = departmentService.update(Long.parseLong(id), departmentDTO);
+        DepartmentUpdateDTO departmentDTO = objectMapper
+                .readValue(req.getInputStream(), DepartmentUpdateDTO.class);
 
-        writer.write(objectMapper.writeValueAsString(departmentConverterUtil.entityToDTO(department)));
+        try {
+            if (req.getParameter(ID) != null && req.getParameter(UPDATE_DATE) != null) {
+                String id = req.getParameter(ID);
+                String updateDate = req.getParameter(UPDATE_DATE);
+                Department department = departmentService.update(Long.parseLong(id), LocalDateTime.parse(updateDate),
+                        departmentDTO);
+
+                writer.write(objectMapper.writeValueAsString(departmentConverterUtil.entityToDTO(department)));
+            } else {
+                throw new IllegalArgumentException("Укажите id и дату последнего обновления объекта!");
+            }
+        } catch (IllegalArgumentException e) {
+            log(e.getMessage());
+
+            writer.write(e.getMessage());
+        }
     }
 
     @Override
@@ -100,6 +116,6 @@ public class DepartmentServlet extends HttpServlet {
             log(e.getMessage());
         }
 
-        resp.setStatus(HttpServletResponse.SC_OK);;
+        resp.setStatus(HttpServletResponse.SC_OK);
     }
 }

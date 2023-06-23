@@ -1,8 +1,9 @@
 package endpoints.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.dto.LocationCreateUpdateDTO;
+import core.dto.LocationCreateDTO;
 import core.dto.LocationDTO;
+import core.dto.LocationUpdateDTO;
 import dao.entity.Location;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,16 +17,17 @@ import service.util.LocationConverterUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/api/location")
 public class LocationServlet extends HttpServlet {
     private static final String ID = "id";
+    private static final String UPDATE_DATE = "update_date";
     private final ILocationService locationService;
     private final LocationConverterUtil locationConverterUtil;
     private final ObjectMapper objectMapper;
-
 
     public LocationServlet() {
         this.locationService = LocationServiceFactory.getInstance();
@@ -63,8 +65,8 @@ public class LocationServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        LocationCreateUpdateDTO locationDTO = objectMapper
-                .readValue(req.getInputStream(), LocationCreateUpdateDTO.class);
+        LocationCreateDTO locationDTO = objectMapper
+                .readValue(req.getInputStream(), LocationCreateDTO.class);
         Location location = locationService.create(locationDTO);
 
         resp.setStatus(HttpServletResponse.SC_CREATED);
@@ -76,13 +78,26 @@ public class LocationServlet extends HttpServlet {
         resp.setContentType("application/json");
 
         PrintWriter writer = resp.getWriter();
-        String id = req.getParameter(ID);
-        LocationCreateUpdateDTO locationDTO = objectMapper
-                .readValue(req.getInputStream(), LocationCreateUpdateDTO.class);
-        Location location = locationService.update(Long.parseLong(id), locationDTO);
+        LocationUpdateDTO locationDTO = objectMapper
+                .readValue(req.getInputStream(), LocationUpdateDTO.class);
 
-        resp.setStatus(HttpServletResponse.SC_OK);
-        writer.write(objectMapper.writeValueAsString(locationConverterUtil.entityToDTO(location)));
+        try {
+            if (req.getParameter(ID) != null && req.getParameter(UPDATE_DATE) != null) {
+                String id = req.getParameter(ID);
+                String updateDate = req.getParameter(UPDATE_DATE);
+                Location location = locationService.update(Long.parseLong(id), LocalDateTime.parse(updateDate),
+                        locationDTO);
+
+                resp.setStatus(HttpServletResponse.SC_OK);
+                writer.write(objectMapper.writeValueAsString(locationConverterUtil.entityToDTO(location)));
+            } else {
+                throw new IllegalArgumentException("Укажите id и дату последнего обновления объекта!");
+            }
+        } catch (IllegalArgumentException e) {
+            log(e.getMessage());
+
+            writer.write(e.getMessage());
+        }
     }
 
     @Override

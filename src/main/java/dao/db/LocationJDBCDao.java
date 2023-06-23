@@ -50,10 +50,9 @@ public class LocationJDBCDao implements ILocationDao {
     }
 
     @Override
-    public Location update(Long id, Location item) {
+    public Location update(Location item) {
         try (EntityManager em = HibernateUtil.getEntityManager()) {
             EntityTransaction tr = em.getTransaction();
-            item.setId(id);
             Location location = em.find(Location.class, item.getId());
 
             tr.begin();

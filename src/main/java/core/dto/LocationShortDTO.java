@@ -1,12 +1,12 @@
 package core.dto;
 
-public class DepartmentShortDTO {
+public class LocationShortDTO {
     private String name;
 
-    public DepartmentShortDTO() {
+    public LocationShortDTO() {
     }
 
-    public DepartmentShortDTO(String name) {
+    public LocationShortDTO(String name) {
         this.name = name;
     }
 

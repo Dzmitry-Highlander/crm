@@ -3,6 +3,8 @@ package dao.entity;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class Department implements Serializable {
@@ -25,23 +27,33 @@ public class Department implements Serializable {
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
+    @Column(name = "update_Date")
+    private LocalDateTime updateDate;
+    @Column(name = "create_date")
+    private LocalDateTime createDate;
 
     public Department() {
     }
 
-    public Department(String name, Department parent, String phone, Location location) {
+    public Department(String name, Department parent, String phone, Location location, LocalDateTime updateDate,
+                      LocalDateTime createDate) {
         this.name = name;
         this.parent = parent;
         this.phone = phone;
         this.location = location;
+        this.updateDate = updateDate;
+        this.createDate = createDate;
     }
 
-    public Department(Long id, String name, Department parent, String phone, Location location) {
+    public Department(Long id, String name, Department parent, String phone, Location location,
+                      LocalDateTime updateDate, LocalDateTime createDate) {
         this.id = id;
         this.name = name;
         this.parent = parent;
         this.phone = phone;
         this.location = location;
+        this.updateDate = updateDate;
+        this.createDate = createDate;
     }
 
     public Long getId() {
@@ -82,5 +94,37 @@ public class Department implements Serializable {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Department that)) return false;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getName(),
+                that.getName()) && Objects.equals(getParent(), that.getParent()) && Objects.equals(getPhone(),
+                that.getPhone()) && Objects.equals(getLocation(), that.getLocation()) && Objects.equals(getUpdateDate(),
+                that.getUpdateDate()) && Objects.equals(getCreateDate(), that.getCreateDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getParent(), getPhone(), getLocation(), getUpdateDate(),
+                getCreateDate());
     }
 }

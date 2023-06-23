@@ -1,11 +1,13 @@
 package service;
 
-import core.dto.DepartmentCreateUpdateDTO;
+import core.dto.DepartmentCreateDTO;
+import core.dto.DepartmentUpdateDTO;
 import dao.api.IDepartmentDao;
 import dao.api.ILocationDao;
 import dao.entity.Department;
 import service.api.IDepartmentService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class DepartmentService implements IDepartmentService {
@@ -18,8 +20,10 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public Department create(DepartmentCreateUpdateDTO item) {
-        return departmentDao.create(DTOtoEntity(item));
+    public Department create(DepartmentCreateDTO item) {
+        Department department = new Department();
+
+        return departmentDao.create(department);
     }
 
     @Override
@@ -33,27 +37,32 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public Department update(Long id, DepartmentCreateUpdateDTO item) {
-        return departmentDao.update(id, DTOtoEntity(item));
+    public Department update(Long id, LocalDateTime date, DepartmentUpdateDTO item) throws IllegalArgumentException {
+        Department department = departmentDao.read(id);
+
+        if (department != null) {
+            if (department.getUpdateDate().equals(date)) {
+                department.setId(id);
+                department.setName(item.getName());
+
+                if (item.getParent() != null) {
+                    department.setParent(departmentDao.read(id).getParent());
+                }
+
+                department.setPhone(item.getPhone());
+                department.setLocation(locationDao.read(item.getLocation()));
+
+                return departmentDao.update(department);
+            }
+
+            throw new IllegalArgumentException("Объект был обновлен!");
+        }
+
+        throw new IllegalArgumentException("Департамент не найден!");
     }
 
     @Override
     public void delete(Long id) {
         departmentDao.delete(id);
-    }
-
-    public Department DTOtoEntity(DepartmentCreateUpdateDTO item) {
-        Department department = new Department();
-
-        department.setName(item.getName());
-
-        if (item.getParent() != null) {
-            departmentDao.read(item.getParent());
-        }
-
-        department.setPhone(item.getPhone());
-        department.setLocation(locationDao.read(item.getLocation()));
-
-        return department;
     }
 }

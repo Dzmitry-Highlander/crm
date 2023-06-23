@@ -51,10 +51,10 @@ public class DepartmentJBDCDao implements IDepartmentDao {
     }
 
     @Override
-    public Department update(Long id, Department item) {
+    public Department update(Department item) {
         try (EntityManager em = HibernateUtil.getEntityManager()) {
             EntityTransaction tr = em.getTransaction();
-            Department department = em.find(Department.class, id);
+            Department department = em.find(Department.class, item.getId());
 
             tr.begin();
             if (department != null) {
